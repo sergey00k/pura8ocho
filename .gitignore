@@ -7,6 +7,7 @@
 
 # Ignore secrets folder
 secrets/
+public/
 
 # testing
 /coverage
