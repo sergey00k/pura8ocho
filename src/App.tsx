@@ -35,12 +35,12 @@ const HeaderMenu: React.FC = () => {
 
   return (
     <div>
-      <header style={{ paddingRight: '20px', height: 80, paddingLeft: '20px', background: 'black' }}>
+      <header style={{ paddingRight: '20px', height: 60, paddingLeft: '20px', background: 'black' }}>
         <nav>
           <ul style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', listStyle: 'none' }}>
-            <li><a href="/">Home</a></li>
+            <div></div>
             <button style={{background: 'none', border: 'none'}}onClick={openModal}>
-              <IonIcon icon={menuOutline} style={{ fontSize: '50px', color: 'white' }} />
+              <IonIcon icon={menuOutline} style={{ fontSize: '40px', color: 'white' }} />
             </button>
           </ul>
         </nav>
@@ -57,11 +57,11 @@ const HeaderMenu: React.FC = () => {
             width: 120,
             bgcolor: 'black',
             boxShadow: 24,
-            paddingTop: 4
+            paddingTop: 4,
+            paddingLeft: 0
           }}
         >
-          <h2>Material UI Modal</h2>
-          <p>This is a modal with Material UI.</p>
+          <h2 style={{ marginLeft: 4}}>Home</h2>
           <CSSMistAnimation />
         </Box>
         </Slide>

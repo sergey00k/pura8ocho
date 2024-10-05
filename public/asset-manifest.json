@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "/static/css/main.e6c13ad2.css",
+    "main.js": "/static/js/main.dcc9e78c.js",
+    "static/js/653.5a9dd3af.chunk.js": "/static/js/653.5a9dd3af.chunk.js",
+    "static/js/923.dae2ae2c.chunk.js": "/static/js/923.dae2ae2c.chunk.js",
+    "static/js/627.a567173f.chunk.js": "/static/js/627.a567173f.chunk.js",
+    "static/js/867.350e68db.chunk.js": "/static/js/867.350e68db.chunk.js",
+    "static/js/453.d5e33cc9.chunk.js": "/static/js/453.d5e33cc9.chunk.js",
+    "static/media/stoneWall.jpg": "/static/media/stoneWall.cbfb6984bd07e1dc1619.jpg",
+    "static/media/sauna.jpeg": "/static/media/sauna.74ad2cbb952fc4911db8.jpeg",
+    "static/media/statuePeople.jpeg": "/static/media/statuePeople.c2787df2d2daddd377e4.jpeg",
+    "static/media/instagram.png": "/static/media/instagram.a21c478fe9427a20d0db.png",
+    "static/media/fireClose.jpeg": "/static/media/fireClose.c2721e459e9c3bda2782.jpeg",
+    "static/media/facebook.png": "/static/media/facebook.6ce596737c6865e80243.png",
+    "static/media/gmail.png": "/static/media/gmail.b5a85e0235e829cadeb9.png",
+    "static/media/check-icon.png": "/static/media/check-icon.7788b39da8a72067746f.png",
+    "static/media/whatsapp.png": "/static/media/whatsapp.ac93e6adff7392cab368.png",
+    "index.html": "/index.html",
+    "main.e6c13ad2.css.map": "/static/css/main.e6c13ad2.css.map",
+    "main.dcc9e78c.js.map": "/static/js/main.dcc9e78c.js.map",
+    "653.5a9dd3af.chunk.js.map": "/static/js/653.5a9dd3af.chunk.js.map",
+    "923.dae2ae2c.chunk.js.map": "/static/js/923.dae2ae2c.chunk.js.map",
+    "627.a567173f.chunk.js.map": "/static/js/627.a567173f.chunk.js.map",
+    "867.350e68db.chunk.js.map": "/static/js/867.350e68db.chunk.js.map",
+    "453.d5e33cc9.chunk.js.map": "/static/js/453.d5e33cc9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.dcc9e78c.js"
+  ]
+}

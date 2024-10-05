@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 
 ////////// icons /////////////////
 import { IonIcon } from '@ionic/react';
+import { logoWhatsapp, mailOutline, logoFacebook, logoInstagram } from 'ionicons/icons';
 import facebook from '../assets/images/socialLogos/facebook.png'
 import whatsapp from '../assets/images/socialLogos/whatsapp.png'
 import instagram from '../assets/images/socialLogos/instagram.png'
@@ -13,12 +14,14 @@ import check from '../assets/images/check-icon.png'
 
 ////////// components /////////////////
 import Text from '../components/Text'
+import Button from '../components/Button'
+
 
 ///////// firebase database ////////////////
 import { db } from '../secrets/firebaseConfig';
 import { doc, setDoc, updateDoc, query, collection, getDocs, where } from "firebase/firestore"; 
 
-import { Modal, Box, Slide, Button } from '@mui/material';
+import { Modal, Box, Slide } from '@mui/material';
 
 const Footer: React.FC = () => {
     const [email, setEmail] = useState('')
@@ -95,30 +98,30 @@ const Footer: React.FC = () => {
         <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
           <Box sx={{ justifyContent: 'space-between', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', backgroundColor: 'transparent', width: '80%' }} >
             <Text customCss={headerTextStyle}>Socials</Text>
-            <button onClick={() => externalUrlRedirection('url')} style={{ paddingLeft: 0, border: 'none', background: 'none', alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
-              <img src={whatsapp} style={{height: 18, width: 18, marginRight: 12}}></img>
+            <button onClick={() => externalUrlRedirection('url')} style={{ height: 40,paddingLeft: 0, border: 'none', background: 'none', alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
+              <IonIcon icon={logoWhatsapp} style={{color: 'white', height: 18, width: 18, marginRight: 10}} />
               <Text customCss={bodyTextStyle} >WhatsApp</Text>
             </button>
-            <button onClick={() => externalUrlRedirection('url')} style={{ paddingLeft: 0, border: 'none', background: 'none', alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
-              <img src={instagram} style={{height: 18, width: 18, marginRight: 12}}></img>
+            <button onClick={() => externalUrlRedirection('url')} style={{ height: 40,paddingLeft: 0, border: 'none', background: 'none', alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
+              <IonIcon icon={logoInstagram} style={{color: 'white', height: 18, width: 18, marginRight: 10}} />
               <Text customCss={bodyTextStyle}>Instagram</Text>
             </button>
-            <button onClick={() => externalUrlRedirection('url')} style={{ paddingLeft: 0, border: 'none', background: 'none', alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
-              <img src={facebook} style={{height: 18, width: 18, marginRight: 12}}></img>
+            <button onClick={() => externalUrlRedirection('url')} style={{ height: 40,paddingLeft: 0, border: 'none', background: 'none', alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
+              <IonIcon icon={logoFacebook} style={{color: 'white', height: 18, width: 18, marginRight: 10}} />
               <Text customCss={bodyTextStyle}>Facebook</Text>
             </button>
-            <button onClick={() => externalUrlRedirection('url')} style={{ paddingLeft: 0, border: 'none', background: 'none', alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
-              <img src={gmail} style={{height: 18, width: 18, marginRight: 12}}></img>
+            <button onClick={() => externalUrlRedirection('url')} style={{ height: 40, paddingLeft: 0, border: 'none', background: 'none', alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
+              <IonIcon icon={mailOutline} style={{color: 'white', height: 18, width: 18, marginRight: 10}} />
               <Text customCss={bodyTextStyle}>Email</Text>
             </button>
           </Box>
           <Box sx={{  display: 'flex', flexDirection: 'column', alignItems: 'center', width: '80%'}}>
-            <Text customCss={headerTextStyle} style={{ marginBottom: 6, textAlign: 'center'}}>Enjoy 10% off your next visit</Text>
+            <Text customCss={headerTextStyle} style={{ marginBottom: 6, width: 200, textAlign: 'center'}}>Enjoy 10% off your next visit</Text>
             {!emailConfirmed ? (
               <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center',}}>
                 {emailExistsError && (<Text customCss={extraSmallTextStyle} style={{color: 'red', textAlign: 'center', marginBottom: 8, marginTop: 8}}>Entered email is not valid.</Text>)}
-                <input placeholder={'Enter your email...'} onChange={e => setEmail(e.target.value)} style={{ color: 'black',marginTop: 6, backgroundColor: 'whitesmoke', borderRadius: 20, height: 18, marginBottom: 18 }}></input>
-                <button onClick={() => sendEmail(email)} style={{ color: 'white', backgroundColor: '#4F4F4F', borderRadius: 30, width: 100, height: 28, border: 'none'}}>Get 10% Off</button>
+                <input placeholder={'Enter your email...'} onChange={e => setEmail(e.target.value)} style={{ color: 'black',marginTop: 6, backgroundColor: 'whitesmoke', borderRadius: 20, height: 24, width: 160, marginBottom: 18 }}></input>
+                <Button onClick={() => sendEmail(email)} text={'Get 10% Off'} customCss={css`width: 140px; margin-top: 6px; height: 36px`} />
               </div>
             ) : (
               <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center',}}>

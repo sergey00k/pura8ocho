@@ -8,10 +8,10 @@ const animate = keyframes`
     opacity: 0;
   }
   15% {
-    opacity: 1;
+    opacity: 0.8;
   }
   50% {
-    transform: translateY(-75px) scaleX(5);
+    transform: translateY(-75px) scaleX(7);
   }
   95% {
     opacity: 0;
@@ -22,7 +22,7 @@ const animate = keyframes`
 `;
 
 const steam1Styles = css`
-  width: 400px;
+  width: 200px;
   height: 600px;
   background: transparent;
   border-color: transparent;
@@ -43,7 +43,8 @@ const anima1Styles = css`
 
 const spanStyles = (i: number) => css`
   position: relative;
-  bottom: -450px;
+  bottom: -550px;
+  right: -28px;
   margin: 0 2px 50px;
   min-width: 8px;
   height: 120px;
