@@ -41,11 +41,17 @@ import { useNavigate } from 'react-router-dom';
 const screenWidth = window.innerWidth
 const screenHeight = window.innerHeight
 
+let headerFontSize = '22';
+let bodyFontSize = '16';
 
+if (screenHeight > 738) {
+  headerFontSize = '26'
+  bodyFontSize = '20'
+}
 
 const bodyTextStyle = css`
   color: white;
-  font-size: 16px;
+  font-size: ${bodyFontSize}px;
   `;
 
 const extraSmallTextStyle = css`
@@ -99,7 +105,7 @@ const fadeInHeader = keyframes`
 
 const headerTextStyle = css`
   color: white;
-  font-size: 22px;
+  font-size: ${headerFontSize}px;
   font-weight: bold;
   `;
 
@@ -131,7 +137,7 @@ const Home: React.FC = () => {
           <img src={sauna} style={{height: 300, position: 'absolute', zIndex: 1, width: '100%'}}></img>
           <FireAnimation customStyles={fireStyle} />
           <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 3, opacity: 0.35, width: '100%', height: 300, alignItems: 'center'}}></Box>
-          <Text customCss={headerTextStyle} style={{position: 'absolute', top: '60%', left: '48%', textAlign: 'right', width: '46%', zIndex: 4,}}>Peace, Relaxation, Community.</Text>
+          <Text customCss={headerTextStyle} style={{position: 'absolute', bottom: '1%', left: '48%', textAlign: 'right', width: '46%', zIndex: 4,}}>{'Peace, Relaxation, Community.'}</Text>
         </Box>
 
         <Box style={{backgroundColor: 'black', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 520, alignItems: 'flex-end'}}>
@@ -156,14 +162,16 @@ const Home: React.FC = () => {
             <VideoPlayer videoPath={require('../assets/videos/video3.mp4')} thumbnailPath={thumbnail3}/>
           </Box>
         </Box>
-        <Box style={{backgroundColor: 'black', position: 'relative', zIndex: 1, width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: screenHeight * 0.52,}}>
+        <Box style={{backgroundColor: 'black', position: 'relative', zIndex: 1, paddingTop: screenHeight * 0.05, width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: screenHeight * 0.54,}}>
           
-            <Text customCss={headerTextStyle} style={{marginTop: 40, marginLeft: 32, position: 'relative', zIndex: 2}}>About Pura8ocho</Text>
+            <Text customCss={headerTextStyle} style={{ marginLeft: 32, position: 'relative', zIndex: 4}}>About Pura8ocho</Text>
             <RotatingImage 
         src={starrySky} 
         alt="Starry Sky"
       />
-            <Box style={{ width: '83%',marginLeft: 32,  position: 'relative', zIndex: 3, borderBottomWidth: 1, borderTopWidth: 1, borderTopStyle: 'solid',borderBottomStyle: 'solid', paddingTop: 20, paddingBottom: 20, borderColor: 'white'}}>
+                <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 3, opacity: 0.35, width: '100%', height: screenHeight * 0.8, top: -(screenHeight * 0.05), alignItems: 'center'}}></Box>
+
+            <Box style={{ width: '83%',marginLeft: 32,  position: 'relative', zIndex: 4, borderBottomWidth: 1, borderTopWidth: 1, borderTopStyle: 'solid',borderBottomStyle: 'solid', paddingTop: 20, paddingBottom: 20, borderColor: 'white'}}>
               <Text customCss={bodyTextStyle} >Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum v vLorem ipsum Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum</Text>
             </Box>
         </Box>
