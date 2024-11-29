@@ -1,4 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { IonIcon } from '@ionic/react';
+import { play } from 'ionicons/icons';
+
+
+
+const screenWidth = window.innerWidth
+const screenHeight = window.innerHeight
+
 
 interface VideoPlayerProps {
   videoPath: string; // Path to the video
@@ -8,10 +16,28 @@ interface VideoPlayerProps {
 
 const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoPath, thumbnailPath, customStyles }) => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const handlePlay = () => {
     setIsPlaying(true);
   };
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      const videoElement = videoRef.current;
+      console.log('handleFullscreenChange trigggered')
+      if (!document.fullscreenElement && videoElement) {
+        // Exit fullscreen or closing the native player
+        setIsPlaying(false);
+      }
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
+  }, []);
 
   return (
     <div style={{ maxWidth: '100%', margin: 'auto', ...customStyles }}>
@@ -19,33 +45,36 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoPath, thumbnailPath, cus
         <div
           onClick={handlePlay}
           style={{
-            backgroundImage: `url(${thumbnailPath})`, // Dynamic path to your thumbnail
+            backgroundImage: thumbnailPath, // Dynamic path to your thumbnail
             backgroundSize: 'cover',
-            width: '100%',
-            height: 'auto',
+            width: screenWidth * 0.31,
+            height: screenHeight * 0.3,
             cursor: 'pointer',
             position: 'relative',
+            alignItems: 'center',
+            justifyContent: 'center',
+            display: 'flex',
           }}
         >
-          <div
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
+          <img src={thumbnailPath} style={{ width: screenWidth * 0.333, height: screenHeight * 0.3, objectFit: 'cover', position: 'absolute', zIndex: 1,}} />
+
+          <IonIcon     icon={play} size={'40px'}    style={{
+              zIndex: 2,
+              position: 'relative',
               color: 'white',
-              fontSize: '40px',
+              height: screenWidth * 0.08, width: screenWidth * 0.08,
               textShadow: '0 0 10px rgba(0,0,0,0.7)',
-            }}
-          >
-            ▶️
-          </div>
+            }} />
+
+            <p style={{fontSize: 26, position: 'absolute', color:'white'}}>{isPlaying}</p>
         </div>
       ) : (
         <video
           controls
           style={{ width: '100%', height: 'auto' }} // Responsive design
           autoPlay
+          onPause={() => setIsPlaying(false)}
+          ref={videoRef}
         >
           <source src={videoPath} type="video/mp4" />
           Your browser does not support the video tag.

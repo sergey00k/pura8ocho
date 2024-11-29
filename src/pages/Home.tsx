@@ -15,6 +15,7 @@ import stoneWall from '../assets/images/irlImages/stoneWall.jpg'
 import thumbnail1 from '../assets/videos/thumbnail1.jpg'
 import thumbnail2 from '../assets/videos/thumbnail2.jpg'
 import thumbnail3 from '../assets/videos/thumbnail3.jpg'
+import starrySky from '../assets/images/nightsky.jpg'
 
 ////////// videos ///////////////
 /*import videoOne from '../assets/videos/video-one.mp4'
@@ -36,6 +37,9 @@ import { doc, setDoc, updateDoc, query, collection, getDocs, where } from "fireb
 
 import { Modal, Box, Slide } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+
+const screenWidth = window.innerWidth
+const screenHeight = window.innerHeight
 
 
 
@@ -63,6 +67,26 @@ const fireStyle = css`
     opacity: 0.8;
   }
 `;
+
+const rotate = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }`
+
+  const RotatingImage = styled.img`
+  animation: ${rotate} 60s linear infinite;
+  height: ${screenHeight}px;
+  object-fit: cover;
+  position: absolute;
+  z-index: 1;
+  width: 190%;
+  top: -100px;
+  left: -100px
+`;
+
 
 const fadeInHeader = keyframes`
 0% {
@@ -124,20 +148,24 @@ const Home: React.FC = () => {
           </Box>
         </Box>
         
-        <Box style={{backgroundColor: 'black', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 260}}>
+        <Box style={{backgroundColor: 'black', position: 'relative', zIndex: 2, width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 260}}>
           <Text customCss={headerTextStyle} style={{ marginLeft: 32, width: '100%', marginTop: 20}}>Check out the atmosphere...</Text>
           <Box style={{display: 'flex', flexDirection: 'row', width: '100%'}}>
-            <VideoPlayer videoPath={'videopath'} thumbnailPath={thumbnail1}/>
-            <VideoPlayer videoPath={'videopath'} thumbnailPath={thumbnail2}/>
-            <VideoPlayer videoPath={'videopath'} thumbnailPath={thumbnail3}/>
+            <VideoPlayer videoPath={require('../assets/videos/video-one.mp4')} thumbnailPath={thumbnail1}/>
+            <VideoPlayer videoPath={require('../assets/videos/video2.mp4')} thumbnailPath={thumbnail2}/>
+            <VideoPlayer videoPath={require('../assets/videos/video3.mp4')} thumbnailPath={thumbnail3}/>
           </Box>
         </Box>
-        <Box style={{backgroundColor: 'black', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 380,}}>
+        <Box style={{backgroundColor: 'black', position: 'relative', zIndex: 1, width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: screenHeight * 0.52,}}>
           
-            <Text customCss={headerTextStyle} style={{marginTop: 40, marginLeft: 32,}}>About Pura8ocho</Text>
-          <Box style={{ width: '83%',marginLeft: 32, borderBottomWidth: 1, borderTopWidth: 1, borderTopStyle: 'solid',borderBottomStyle: 'solid', paddingTop: 20, paddingBottom: 20, borderColor: 'white'}}>
-            <Text customCss={bodyTextStyle} >Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum v vLorem ipsum Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum</Text>
-          </Box>
+            <Text customCss={headerTextStyle} style={{marginTop: 40, marginLeft: 32, position: 'relative', zIndex: 2}}>About Pura8ocho</Text>
+            <RotatingImage 
+        src={starrySky} 
+        alt="Starry Sky"
+      />
+            <Box style={{ width: '83%',marginLeft: 32,  position: 'relative', zIndex: 3, borderBottomWidth: 1, borderTopWidth: 1, borderTopStyle: 'solid',borderBottomStyle: 'solid', paddingTop: 20, paddingBottom: 20, borderColor: 'white'}}>
+              <Text customCss={bodyTextStyle} >Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum v vLorem ipsum Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum</Text>
+            </Box>
         </Box>
         <Box style={{backgroundColor: 'black', width: '100%',  marginTop: 40, display: 'flex', flexDirection: 'column', height: 230, alignItems: 'center'}}>
           <img src={stoneWall} style={{width: '100%',position: 'absolute', zIndex: 1,  objectFit: 'cover', height: 230}}></img>
