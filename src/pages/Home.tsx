@@ -89,8 +89,8 @@ const rotate = keyframes`
   position: absolute;
   z-index: 1;
   width: 190%;
-  top: -100px;
-  left: -100px
+  top: -140px;
+  left: -140px
 `;
 
 
@@ -162,9 +162,9 @@ const Home: React.FC = () => {
             <VideoPlayer videoPath={require('../assets/videos/video3.mp4')} thumbnailPath={thumbnail3}/>
           </Box>
         </Box>
-        <Box style={{backgroundColor: 'black', position: 'relative', zIndex: 1, paddingTop: screenHeight * 0.05, width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: screenHeight * 0.54,}}>
+        <Box style={{backgroundColor: 'black', overflow: 'hidden', position: 'relative', zIndex: 1, paddingTop: screenHeight * 0.08, paddingBottom: screenHeight * 0.04, width: '100%', display: 'flex', flexDirection: 'column', height: screenHeight * 0.54,}}>
           
-            <Text customCss={headerTextStyle} style={{ marginLeft: 32, position: 'relative', zIndex: 4}}>About Pura8ocho</Text>
+            <Text customCss={headerTextStyle} style={{ marginTop: 0, marginBottom: screenHeight * 0.064, marginLeft: 32,  position: 'relative', zIndex: 4}}>About Pura8ocho</Text>
             <RotatingImage 
         src={starrySky} 
         alt="Starry Sky"
@@ -175,9 +175,9 @@ const Home: React.FC = () => {
               <Text customCss={bodyTextStyle} >Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum v vLorem ipsum Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum</Text>
             </Box>
         </Box>
-        <Box style={{backgroundColor: 'black', width: '100%',  marginTop: 40, display: 'flex', flexDirection: 'column', height: 230, alignItems: 'center'}}>
-          <img src={stoneWall} style={{width: '100%',position: 'absolute', zIndex: 1,  objectFit: 'cover', height: 230}}></img>
-          <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 2, opacity: 0.6, width: '100%', height: 230, alignItems: 'center'}}></Box>
+        <Box style={{backgroundColor: 'black', width: screenWidth, display: 'flex',overflow: 'hidden', flexDirection: 'column', height: 230, alignItems: 'center'}}>
+          <img src={stoneWall} style={{width: screenWidth,position: 'absolute', zIndex: 1,  objectFit: 'cover', height: 230}}></img>
+          <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 2, opacity: 0.6, width: '100%', marginTop: -1, height: 231, alignItems: 'center'}}></Box>
           <Text customCss={headerTextStyle} style={{marginTop: 20, marginBottom: 16, zIndex: 3,  'textAlign': 'center',}}>Sauna schedule</Text>
           
 

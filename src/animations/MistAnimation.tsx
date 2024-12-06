@@ -2,6 +2,9 @@
 import React from 'react';
 import { css, keyframes } from '@emotion/react';
 
+const screenWidth = window.innerWidth
+const screenHeight = window.innerHeight
+
 const animate = keyframes`
   0% {
     transform: translateY(0) scaleX(1);
@@ -43,8 +46,8 @@ const anima1Styles = css`
 
 const spanStyles = (i: number) => css`
   position: relative;
-  bottom: -550px;
-  right: -28px;
+  bottom: -${screenHeight * 0.45}px;
+  right: -${screenHeight * 0.08}px;
   margin: 0 2px 50px;
   min-width: 8px;
   height: 120px;
