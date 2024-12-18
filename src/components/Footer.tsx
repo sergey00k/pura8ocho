@@ -95,7 +95,7 @@ const Footer: React.FC = () => {
     
     return (
         <Box style={{backgroundColor: 'transparent', width: '100%', alignItems: 'center'}}>
-        <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'row', marginLeft: '2vw', justifyContent: 'space-between' }}>
           <Box sx={{ justifyContent: 'space-between', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', backgroundColor: 'transparent', width: '80%' }} >
             <Text customCss={headerTextStyle}>Socials</Text>
             <button onClick={() => externalUrlRedirection('url')} style={{ height: 40,paddingLeft: 0, border: 'none', background: 'none', alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
@@ -115,13 +115,13 @@ const Footer: React.FC = () => {
               <Text customCss={bodyTextStyle}>Email</Text>
             </button>
           </Box>
-          <Box sx={{  display: 'flex', flexDirection: 'column', alignItems: 'center', width: '80%'}}>
-            <Text customCss={headerTextStyle} style={{ marginBottom: 6, width: 200, textAlign: 'center'}}>Enjoy 10% off your next visit</Text>
+          <Box sx={{  display: 'flex', flexDirection: 'column', alignItems: 'center',marginRight: '2vw', width: '80%'}}>
+            <Text customCss={headerTextStyle} style={{ marginBottom: '4.2vh', width: 200, textAlign: 'left'}}>Enjoy 10% off your next visit</Text>
             {!emailConfirmed ? (
-              <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center',}}>
+              <div style={{display: 'flex', flexDirection: 'column', width: 200, alignItems: 'flex-start',}}>
                 {emailExistsError && (<Text customCss={extraSmallTextStyle} style={{color: 'red', textAlign: 'center', marginBottom: 8, marginTop: 8}}>Entered email is not valid.</Text>)}
-                <input placeholder={'Enter your email...'} onChange={e => setEmail(e.target.value)} style={{ color: 'black',marginTop: 6, backgroundColor: 'whitesmoke', borderRadius: 20, height: 24, width: 160, marginBottom: 18 }}></input>
-                <Button onClick={() => sendEmail(email)} text={'Get 10% Off'} customCss={css`width: 140px; margin-top: 6px; height: 36px`} />
+                <input placeholder={'Enter your email...'} onChange={e => setEmail(e.target.value)} style={{ color: 'black',marginTop: 6, backgroundColor: 'whitesmoke', borderRadius: 20, height: 24, width: 160, marginBottom: '4.2vh', }}></input>
+                <Button onClick={() => sendEmail(email)} text={'Get 10% Off'} customCss={css`width: 140px; margin-top: 6px; margin-bottom: 0px; height: 36px`} />
               </div>
             ) : (
               <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center',}}>

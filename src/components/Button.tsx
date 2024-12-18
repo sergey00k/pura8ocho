@@ -16,6 +16,7 @@ const Button: React.FC<ButtonProps> = ({ text, onClick, customCss }) => {
   css={[
     css`
       font-size: 14px;
+      font-weight: bold;
       color: white;
       margin-top: 16px;
       margin-bottom: 24px;

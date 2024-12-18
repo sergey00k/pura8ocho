@@ -30,6 +30,7 @@ import Text from '../components/Text'
 import Footer from '../components/Footer'
 import Button from '../components/Button'
 import VideoPlayer from '../components/VideoPlayer';
+import { TopGradientBox, BottomGradientBox } from '../components/Gradient';
 
 ///////// firebase database ////////////////
 import { db } from '../secrets/firebaseConfig';
@@ -127,22 +128,25 @@ const Home: React.FC = () => {
         sx={{
                   // Set the height of the scrollable area
           overflowY: 'scroll', // Enable vertical scrolling
+          overflowX: 'hidden',
           paddingTop: 2,
           padding: 0,
           backgroundColor: 'black',
           alignItems: 'center',
+          width: '100%'
         }}
       >
         <Box style={{backgroundColor: 'black',position: 'relative', width: '100%', height: 300, alignItems: 'center'}}>
+          <TopGradientBox customStyle={{top: undefined, bottom: 0, height: 26, width: '100%'}} />
           <img src={sauna} style={{height: 300, position: 'absolute', zIndex: 1, width: '100%'}}></img>
           <FireAnimation customStyles={fireStyle} />
-          <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 3, opacity: 0.35, width: '100%', height: 300, alignItems: 'center'}}></Box>
+          <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 3, opacity: 0.3, width: '100%', height: 300, alignItems: 'center'}}></Box>
           <Text customCss={headerTextStyle} style={{position: 'absolute', bottom: '1%', left: '48%', textAlign: 'right', width: '46%', zIndex: 4,}}>{'Peace, Relaxation, Community.'}</Text>
         </Box>
 
-        <Box style={{backgroundColor: 'black', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 520, alignItems: 'flex-end'}}>
+        <Box style={{backgroundColor: 'black', width: '100%', display: 'flex', position: 'relative', flexDirection: 'column', justifyContent: 'space-between', height: 520, alignItems: 'flex-end'}}>
           <img src={statuePeople} style={{height: 520,objectFit: 'cover',  transform: 'scaleX(-1)', position: 'absolute', zIndex: 1, width: '100%'}}></img>
-          <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 2, opacity: 0.35, width: '100%', height: 520, alignItems: 'center'}}></Box>
+          <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 2, opacity: 0.3, width: '100%', height: 520, alignItems: 'center'}}></Box>
 
           <Box style={{ zIndex: 3, width: '100%' }}>
             <Text customCss={[headerTextStyle, css`  opacity: 0;  animation: ${fadeInHeader} 3s forwards;`]} style={{  zIndex: 3,marginLeft: 32,  marginTop: 32}}>At Pura8ocho...</Text>
@@ -152,11 +156,13 @@ const Home: React.FC = () => {
             <Button customCss={css`margin-top: 0px; margin-bottom: 0px;`} onClick={() => navigate('/booking')} text={'Book a sauna'} />
             <Button onClick={() => navigate('/bookingPrivate')} text={'Book a private sauna'} />
           </Box>
+          <TopGradientBox customStyle={{top: undefined, bottom: 0, height: 26, width: '100%'}} />
+
         </Box>
         
         <Box style={{backgroundColor: 'black', position: 'relative', zIndex: 2, width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 260}}>
           <Text customCss={headerTextStyle} style={{ marginLeft: 32, width: '100%', marginTop: 20}}>Check out the atmosphere...</Text>
-          <Box style={{display: 'flex', flexDirection: 'row', width: '100%'}}>
+          <Box style={{display: 'flex',  flexDirection: 'row', position: 'relative', width: '100%'}}>
             <VideoPlayer videoPath={require('../assets/videos/video-one.mp4')} thumbnailPath={thumbnail1}/>
             <VideoPlayer videoPath={require('../assets/videos/video2.mp4')} thumbnailPath={thumbnail2}/>
             <VideoPlayer videoPath={require('../assets/videos/video3.mp4')} thumbnailPath={thumbnail3}/>
@@ -175,22 +181,23 @@ const Home: React.FC = () => {
               <Text customCss={bodyTextStyle} >Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum v vLorem ipsum Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum</Text>
             </Box>
         </Box>
-        <Box style={{backgroundColor: 'black', width: screenWidth, display: 'flex',overflow: 'hidden', flexDirection: 'column', height: 230, alignItems: 'center'}}>
+        <Box style={{backgroundColor: 'black', width: screenWidth, display: 'flex',overflow: 'hidden', position: 'relative', flexDirection: 'column', height: 230, alignItems: 'center'}}>
           <img src={stoneWall} style={{width: screenWidth,position: 'absolute', zIndex: 1,  objectFit: 'cover', height: 230}}></img>
           <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 2, opacity: 0.6, width: '100%', marginTop: -1, height: 231, alignItems: 'center'}}></Box>
           <Text customCss={headerTextStyle} style={{marginTop: 20, marginBottom: 16, zIndex: 3,  'textAlign': 'center',}}>Sauna schedule</Text>
           
 
           <Box style={{ flexDirection: 'column', alignItems: 'center', width: '90%', zIndex: 4, justifyContent: 'space-between', display: 'flex'}}>
-            <Button customCss={css`height: 36px; width: 180px; margin-top: 0px; margin-bottom: 4px`} onClick={() => navigate('/bookingPrivate')} text={'Public sauna'} />
+            <Button customCss={css`height: 36px; width: 180px; margin-top: 0px; margin-bottom: 4px`} onClick={() => navigate('/bookingPrivate')} text={'Public'} />
 
-            <Button customCss={css`height: 36px; width: 180px; margin-bottom: 4px`} onClick={() => navigate('/bookingPrivate')} text={"Women's only sauna"} />
+            <Button customCss={css`height: 36px; width: 180px; margin-bottom: 4px`} onClick={() => navigate('/bookingPrivate')} text={"Women's only"} />
 
-            <Button customCss={css`height: 36px; width: 180px; margin-bottom: 4px`} onClick={() => navigate('/bookingPrivate')} text={'Private sauna'} />
+            <Button customCss={css`height: 36px; width: 180px; margin-bottom: 4px`} onClick={() => navigate('/bookingPrivate')} text={'Private'} />
 
           </Box>
+
         </Box>
-        <Box style={{backgroundColor: 'black', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 520, alignItems: 'flex-end'}}>
+        <Box style={{backgroundColor: 'black', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 520, position: 'relative', alignItems: 'flex-end'}}>
           <Box style={{ zIndex: 3, width: '100%' }}>
             <Text customCss={headerTextStyle} style={{width: '100%', zIndex: 3, marginLeft: 32, marginTop: 40}}>Experience it for yourself.</Text>
           </Box>
@@ -200,6 +207,8 @@ const Home: React.FC = () => {
             <Button customCss={css`margin-top: 0px; margin-bottom: 0px;`} onClick={() => navigate('/booking')} text={'Book a sauna'} />
             <Button onClick={() => navigate('/bookingPrivate')} text={'Book a private sauna'} />
           </Box>
+          <BottomGradientBox customStyle={{top: 0, height: 26, width: '100%'}} />
+          <TopGradientBox customStyle={{top: undefined, bottom: 0, height: 26, width: '100%'}} />
         </Box>
         <Box style={{ padding: 16, alignItems: 'center'}}>
           <Footer />

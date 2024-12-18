@@ -10,11 +10,17 @@ import { menuOutline } from 'ionicons/icons';
 
 
 import { Modal, Box, Slide } from '@mui/material';
+import { useNavigate, useLocation } from 'react-router-dom';
+
 
 ////////// page imports ///////////////
 import Home from './pages/Home';
 import Booking from './pages/Booking';
 import BookingPrivate from './pages/BookingPrivate';
+import AllBookings from './pages/AllBookings';
+import Services from './pages/Services';
+import Sauna from './pages/Sauna';
+import Rooms from './pages/Rooms';
 
 
 ////////// animation imports ///////////////
@@ -47,6 +53,11 @@ const headerTextStyle = css`
     /* test button style :
       border-radius: 20px;
 
+      ////////
+        border-right-color: #ff7f50;
+  border-bottom-color: #ff7f50;
+  border-style: solid;
+
   */
 
   const Button = styled.button`
@@ -58,9 +69,7 @@ const headerTextStyle = css`
   padding: 10px;
   justify-content: flex-start;
   display: flex;
-  border-right-color: #ff7f50;
-  border-bottom-color: #ff7f50;
-  border-style: solid;
+  border-radius: 18px;
   position: relative;
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
@@ -110,6 +119,33 @@ const HeaderMenu: React.FC = () => {
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
+  const navigate = useNavigate(); 
+
+  const location = useLocation();
+
+  useEffect(() => {
+    // Disable scroll on '/allBookings' route
+    document.body.style.overflowX = 'hidden';
+    document.documentElement.style.overflowX = 'hidden'; 
+    if ((location.pathname === '/allBookings') || (location.pathname === '/sauna')) {
+      console.log('Disabling scroll for /allBookings');
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';  // Ensure html element is also affected
+    } else {
+      console.log('Enabling scroll for other routes');
+      document.body.style.overflow = 'auto';
+      document.documentElement.style.overflow = 'auto';  // Reset the overflow on html element
+    }
+
+    // Cleanup function to reset scroll when route changes
+    return () => {
+      console.log('Cleaning up overflow styles');
+      document.body.style.overflow = 'auto';
+      document.documentElement.style.overflow = 'auto';
+    };
+  }, [location]); 
+  
+
 
   return (
     <div>
@@ -142,13 +178,13 @@ const HeaderMenu: React.FC = () => {
           }}
         >
           <Box style={{ display: 'flex', flexDirection: 'column'}}>
-            <Button>
+            <Button onClick={() => {navigate('/'); document.body.style.overflow = 'auto'; setTimeout(() => closeModal(), 100);}}>
               <Text customCss={headerTextStyle} style={{ margin: 0}}>Home</Text>
             </Button>
-            <Button>
+            <Button onClick={() => {navigate('/allBookings');  setTimeout(() => closeModal(), 100);}}>
               <Text customCss={headerTextStyle} style={{ margin: 0}}>Bookings</Text>
             </Button>
-            <Button>
+            <Button onClick={() => {navigate('/services');  setTimeout(() => closeModal(), 100);}}>
               <Text customCss={headerTextStyle} style={{ margin: 0}}>Services</Text>
             </Button>
             <Button>
@@ -165,6 +201,17 @@ const HeaderMenu: React.FC = () => {
 
 
 const App: React.FC = () => {
+
+  useEffect(() => {
+      const img = new Image();
+      const img2 = new Image();
+      const img3 = new Image();
+      img.src = './src/assets/images/backgrounds/thePath.webp'; // Preload image ../assets/images/ServicesImages/wideshot2.jpeg
+      img2.src = './src/assets/images/ServicesImages/wideshot2.jpeg';
+      img3.src = './src/assets/images/ServicesImages/hats.jpeg'
+  }, []);
+
+
   useEffect(() => {
     // Setting the global styles for the root HTML element
     document.documentElement.style.setProperty('color-scheme', 'dark');
@@ -178,6 +225,10 @@ const App: React.FC = () => {
         <Route path="/" element={<Home />} />
         <Route path="/booking" element={<Booking />} />
         <Route path="/bookingPrivate" element={<BookingPrivate />} />
+        <Route path="/allBookings" element={<AllBookings />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/sauna" element={<Sauna />} />
+        <Route path="/rooms" element={<Rooms />} />
       </Routes>
     </Router>
   );
