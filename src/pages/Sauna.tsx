@@ -16,6 +16,7 @@ import Text from '../components/Text'
 import Footer from '../components/Footer'
 import Button from '../components/Button';
 import { TopGradientBox, BottomGradientBox } from '../components/Gradient';
+import StripePaymentModalWrapper from '../components/PaymentModal';
 
 
 ///////// firebase database ////////////////
@@ -186,6 +187,7 @@ const Sauna: React.FC = () => {
             <img src={wideshot2} style={{height: '80vh', position: 'absolute', zIndex: 1, width: '100%'}}></img>
             <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 2, opacity: 0.5, width: '100%', height: '80vh', alignItems: 'center'}}></Box>
 
+            <StripePaymentModalWrapper isVisible={paymentModal} onClose={() => setPaymentModal(false)} />
         </Box>
     )
 }

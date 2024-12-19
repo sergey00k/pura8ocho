@@ -120,8 +120,16 @@ const Footer: React.FC = () => {
             {!emailConfirmed ? (
               <div style={{display: 'flex', flexDirection: 'column', width: 200, alignItems: 'flex-start',}}>
                 {emailExistsError && (<Text customCss={extraSmallTextStyle} style={{color: 'red', textAlign: 'center', marginBottom: 8, marginTop: 8}}>Entered email is not valid.</Text>)}
-                <input placeholder={'Enter your email...'} onChange={e => setEmail(e.target.value)} style={{ color: 'black',marginTop: 6, backgroundColor: 'whitesmoke', borderRadius: 20, height: 24, width: 160, marginBottom: '4.2vh', }}></input>
-                <Button onClick={() => sendEmail(email)} text={'Get 10% Off'} customCss={css`width: 140px; margin-top: 6px; margin-bottom: 0px; height: 36px`} />
+                <Box style={{
+        background: 'linear-gradient(to right, #5A0C9D, #9F2D99)',
+        padding: '1%',
+        borderRadius: 20,
+        marginTop: 6,
+        marginBottom: '4.2vh'
+    }}>
+                <input placeholder={'Enter your email...'} onChange={e => setEmail(e.target.value)} style={{ color: 'white', backgroundColor: 'black', borderColor: 'transparent', borderRadius: 20, height: 24, width: 160, }}></input>
+                </Box>
+                <Button onClick={() => sendEmail(email)} text={'Get 10% Off'} customCss={css`width: 126px; font-size: 14px; margin-top: 6px; margin-bottom: 0px; height: 36px`} />
               </div>
             ) : (
               <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center',}}>
