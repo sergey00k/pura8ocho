@@ -143,9 +143,10 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isVisible, onClose }) => {
       await updateDoc(doc(db, 'emailList', email), {
         paid: true
       });
-      //SendEmail(email)
       
       onClose(true); // Close the modal on success
+
+      
     }
   };
 
@@ -188,55 +189,12 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isVisible, onClose }) => {
     }
   }
 
-  const handleOVOPayment = async () => {
-    if (!chosenPaymentMethod) {
-      setChosenPaymentMethod("ovo");
-      return;
-    }
   
-    try {
-      // Replace with sandbox URL for testing
-      const response = await axios.post('https://api-sandbox.doku.com/ovo-open-api/v1/payment', {
-        customer: {
-          id: ovoCustomerId,
-          name: ovoCustomerName,
-          phone: ovoCustomerPhone,
-          email: ovoCustomerEmail,
-        },
-        order: {
-          invoice_number: 'MINV20201231468',
-          line_items: [
-            { name: 'Relationship test result', price: 49000, quantity: 1 },
-          ],
-          amount: 49000, // Use a realistic amount for testing
-        },
-        ovo_account: {
-          token_id: 'valid-sandbox-token-id', // Replace with a valid sandbox token
-          payment_use_ovo_point: false,
-          success_payment_url: 'https://www.yoursite.com/success',
-          failed_payment_url: 'https://www.yoursite.com/failed',
-        },
-      });
-  
-      const data = response.data;
-      console.log(data); // Log the response for debugging
-  
-      if (data.error) {
-        console.error('OVO Payment Error', data.error.message);
-      } else {
-        console.error('Success', 'OVO payment was successful!');
-        onClose();
-      }
-    } catch (error) {
-      console.error(error); // Log the error for debugging
-      console.error('Error', 'Failed to process OVO payment');
-    }
-  };
 
   
 
   return (
-    <Modal open={isVisible} onClose={onClose} style={{height: '80vh', alignItems: 'center', display: 'flex', justifyContent: 'center', width: '100vw'}}>
+    <Modal open={isVisible} onClose={() => onClose(true)} style={{height: '80vh', alignItems: 'center', display: 'flex', justifyContent: 'center', width: '100vw'}}>
             <Slide direction="up" style={{ outline: 'none' }} in={isVisible} mountOnEnter unmountOnExit>
 
       <Box style={{...styles.modalContent, height: !emailConfirmed ? '30vh' : '40vh'}}>
@@ -336,27 +294,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isVisible, onClose }) => {
                                 </Box>
                 </>
               )}
-              {chosenPaymentMethod === 'ovo' && (
-                <Box style={styles.cardContainer}>
 
-                  <input
-                    style={styles.input}
-                    placeholder="Customer Name"
-                    value={ovoCustomerName}
-                    onChange={(event) => { setOvoCustomerName(event.target.value) } }
-                  />
-
-                  <input
-                    style={styles.input}
-                    placeholder="Customer Email"
-                    value={ovoCustomerEmail}
-                    onChange={(event) => { setOvoCustomerEmail(event.target.value) } }
-                  />
-                  <button style={styles.startTestButton} onClick={handleOVOPayment}>
-                    <Text style={styles.buttonText}>Pay with OVO</Text>
-                  </button>
-                </Box>
-              )}
             </>
           ) : (
             <>

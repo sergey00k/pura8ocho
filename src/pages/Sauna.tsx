@@ -24,6 +24,8 @@ import { db } from '../secrets/firebaseConfig';
 import { doc, setDoc, updateDoc, query, collection, getDocs, where } from "firebase/firestore"; 
 
 import { Modal, Box, Slide } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+
 
 const headerTextStyle = css`
   color: white;
@@ -61,10 +63,17 @@ const extraSmallTextStyle = css`
 
 
 const Sauna: React.FC = () => {
+    const navigate = useNavigate(); 
+
     const [saunaType, setSaunaType] = useState('Public')
 
     const [discountCode, setDiscountCode] = useState('')
-    const [addOn, setAddOn] = useState('Towel')
+    const [addOn, setAddOn] = useState(['towel'])
+    const [addOnPrice, setAddOnPrice] = useState(0)
+
+
+    const [tickets, setTickets] = useState('1')
+
 
     const [saunaSelectedTimes, setSaunaSelectedTimes] = useState(['Tuesday, 18:00 - 22:00', 'Friday, 18:00 - 22:00'])
     const [saunaPublicTimes, setSaunaPublicTimes] = useState(['Tuesday, 18:00 - 22:00', 'Friday, 18:00 - 22:00'])
@@ -75,7 +84,26 @@ const Sauna: React.FC = () => {
 
     const [paymentModal, setPaymentModal] = useState(false)
 
-    const [price, setPrice] = useState(300)
+    const basePrice = 300
+    const [price, setPrice] = useState(basePrice)
+
+    useEffect(() => {
+        let localAddOnPrice = 0
+        if (addOn.includes('towel')) {
+            localAddOnPrice += 20
+        }
+        if (addOn.includes('sarung')) {
+            localAddOnPrice += 20
+        }
+        if (addOn.includes('massage')) {
+            localAddOnPrice += 120
+        }
+        if (addOn.includes('vip')) {
+            localAddOnPrice += 1000
+        }
+        setAddOnPrice(localAddOnPrice)
+    },[addOn])
+
 
     useEffect(() => {
         if (saunaType === 'Public') {
@@ -89,7 +117,9 @@ const Sauna: React.FC = () => {
             setSaunaSelectedTimes(saunaWomenOnlyTimes)
             setSaunaSelectedTime(saunaWomenOnlyTimes[0])
         }
-    },[saunaType, saunaPublicTimes, saunaPrivateTimes, saunaWomenOnlyTimes])
+
+        setPrice((basePrice + addOnPrice) * Number(tickets))
+    },[saunaType, saunaPublicTimes, saunaPrivateTimes, saunaWomenOnlyTimes, tickets,addOnPrice])
 
 
     const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -101,7 +131,13 @@ const Sauna: React.FC = () => {
     };
 
     const handleAddOnChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setAddOn(event.target.value);
+        const selectedOptions = Array.from(event.target.selectedOptions, (option) => option.value);
+        setAddOn(selectedOptions);
+      };
+      
+
+    const handleTicketChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setTickets(event.target.value);
     };
 
     const handleCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -125,7 +161,7 @@ const Sauna: React.FC = () => {
         >
             <BottomGradientBox customStyle={{height: '9vh', background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0))'}} />
             <Box style={{width: '90%', position: 'relative', marginTop: '4vh', zIndex: 4,}}>
-                <Box style={{display: 'flex', width: '100%', marginBottom: '6vh', justifyContent: 'space-between'}}>
+                <Box style={{display: 'flex', width: '100%', marginBottom: '4vh', justifyContent: 'space-between'}}>
                     <Box>
                         <Text customCss={bodyTextStyle}>Sauna Type: </Text>
                         <select
@@ -139,33 +175,33 @@ const Sauna: React.FC = () => {
                         </select>
                     </Box>
                     <Box>
-                        <Text customCss={bodyTextStyle}>Time: </Text>
+                        <Text customCss={bodyTextStyle}>Tickets: </Text>
                         <select
-                            value={saunaSelectedTime}
-                            onChange={handleTimeChange}
-                            style={{ ...selectStyle, width: '50.5vw' }}
+                            value={tickets}
+                            onChange={handleTicketChange}
+                            style={{...selectStyle, width: '50.5vw' }}
                             >
-
-                                {saunaSelectedTimes.map((type, index) => (
-                                    <option key={index} value={type}>
-                                    {type}
-                                    </option>
-                                ))}
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
                         </select>
                     </Box>
+
                 </Box>
-                <Box style={{display: 'flex', width: '100%', justifyContent: 'space-between'}}>
+                <Box style={{display: 'flex', width: '100%',  justifyContent: 'space-between'}}>
                     <Box>
                         <Text customCss={bodyTextStyle}>Add on: </Text>
                         <select
+                            multiple
                             value={addOn}
                             onChange={handleAddOnChange}
                             style={selectStyle}
                             >
-                            <option value="Towel">Towel</option>
-                            <option value="Sarung">Sarung</option>
-                            <option value="Massage">Massage</option>
-                            <option value="Private">VIP SUPER SUPER PREMIUM</option>
+                            <option value="towel">Towel</option>
+                            <option value="sarung">Sarung</option>
+                            <option value="massage">Massage</option>
+                            <option value="vip">VIP SUPER SUPER PREMIUM</option>
                         </select>
                     </Box>
                     <Box>
@@ -179,6 +215,23 @@ const Sauna: React.FC = () => {
                             />
                     </Box>
                 </Box>
+                <Box style={{display: 'flex', width: '100%',  justifyContent: 'space-between'}}>
+                    <Box style={{width: '100%'}}>
+                        <Text customCss={bodyTextStyle}>Time: </Text>
+                        <select
+                            value={saunaSelectedTime}
+                            onChange={handleTimeChange}
+                            style={{ ...selectStyle, width: '100%' }}
+                            >
+
+                                {saunaSelectedTimes.map((type, index) => (
+                                    <option key={index} value={type}>
+                                    {type}
+                                    </option>
+                                ))}
+                        </select>
+                    </Box>
+                </Box>
             </Box>
             <Box style={{ width: '100%', display: 'flex', position: 'relative', zIndex: 4, flexDirection: 'column', marginBottom: '2vh', justifyContent: 'center', alignItems: 'center'}}>
                 <Text customCss={headerTextStyle}>{`Total: ${price}k IDR`}</Text>
@@ -187,7 +240,7 @@ const Sauna: React.FC = () => {
             <img src={wideshot2} style={{height: '80vh', position: 'absolute', zIndex: 1, width: '100%'}}></img>
             <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 2, opacity: 0.5, width: '100%', height: '80vh', alignItems: 'center'}}></Box>
 
-            <StripePaymentModalWrapper isVisible={paymentModal} onClose={() => setPaymentModal(false)} />
+            <StripePaymentModalWrapper isVisible={paymentModal} onClose={(paid) => { setPaymentModal(false); if (paid) {navigate('/success')}}} />
         </Box>
     )
 }

@@ -21,6 +21,7 @@ import AllBookings from './pages/AllBookings';
 import Services from './pages/Services';
 import Sauna from './pages/Sauna';
 import Rooms from './pages/Rooms';
+import Success from './pages/Success';
 
 
 ////////// animation imports ///////////////
@@ -127,7 +128,7 @@ const HeaderMenu: React.FC = () => {
     // Disable scroll on '/allBookings' route
     document.body.style.overflowX = 'hidden';
     document.documentElement.style.overflowX = 'hidden'; 
-    if ((location.pathname === '/allBookings') || (location.pathname === '/sauna')) {
+    if ((location.pathname === '/allBookings') || (location.pathname === '/sauna') || (location.pathname === '/success')) {
       console.log('Disabling scroll for /allBookings');
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';  // Ensure html element is also affected
@@ -229,6 +230,7 @@ const App: React.FC = () => {
         <Route path="/services" element={<Services />} />
         <Route path="/sauna" element={<Sauna />} />
         <Route path="/rooms" element={<Rooms />} />
+        <Route path="/success" element={<Success />} />
       </Routes>
     </Router>
   );
