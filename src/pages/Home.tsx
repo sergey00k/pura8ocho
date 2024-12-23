@@ -141,7 +141,7 @@ const Home: React.FC = () => {
           <img src={sauna} style={{height: 300, position: 'absolute', zIndex: 1, width: '100%'}}></img>
           <FireAnimation customStyles={fireStyle} />
           <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 3, opacity: 0.3, width: '100%', height: 300, alignItems: 'center'}}></Box>
-          <Text customCss={headerTextStyle} style={{position: 'absolute', bottom: '1%', left: '48%', textAlign: 'right', width: '46%', zIndex: 4,}}>{'Peace, Relaxation, Community.'}</Text>
+          <Text customCss={[headerTextStyle, css`  opacity: 0;  animation: ${fadeInHeader} 3s forwards;`]} style={{position: 'absolute', bottom: '1%', left: '48%', textAlign: 'right', width: '46%', zIndex: 4,}}>{'Peace, Relaxation, Community.'}</Text>
         </Box>
 
         <Box style={{backgroundColor: 'black', width: '100%', display: 'flex', position: 'relative', flexDirection: 'column', justifyContent: 'space-between', height: 520, alignItems: 'flex-end'}}>

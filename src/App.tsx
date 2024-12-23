@@ -22,6 +22,7 @@ import Services from './pages/Services';
 import Sauna from './pages/Sauna';
 import Rooms from './pages/Rooms';
 import Success from './pages/Success';
+import Info from './pages/Info';
 
 
 ////////// animation imports ///////////////
@@ -188,7 +189,7 @@ const HeaderMenu: React.FC = () => {
             <Button onClick={() => {navigate('/services');  setTimeout(() => closeModal(), 100);}}>
               <Text customCss={headerTextStyle} style={{ margin: 0}}>Services</Text>
             </Button>
-            <Button>
+            <Button onClick={() => {navigate('/info');  setTimeout(() => closeModal(), 100);}}>
               <Text customCss={headerTextStyle} style={{ margin: 0}}>Info</Text>
             </Button>
           </Box>
@@ -231,6 +232,7 @@ const App: React.FC = () => {
         <Route path="/sauna" element={<Sauna />} />
         <Route path="/rooms" element={<Rooms />} />
         <Route path="/success" element={<Success />} />
+        <Route path="/info" element={<Info />} />
       </Routes>
     </Router>
   );

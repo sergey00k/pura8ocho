@@ -62,7 +62,7 @@ const AllBookings: React.FC = () => {
             }}
         >
             <BottomGradientBox />
-            <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 2, opacity: 0.15, width: '100%', height: '100%', alignItems: 'center'}}></Box>
+            <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 2, opacity: 0.3, width: '100%', height: '100%', alignItems: 'center'}}></Box>
             <img src={thePath} style={{height: '100%', position: 'absolute', zIndex: 1, width: '100%'}}></img>
             <Text customCss={headerTextStyle} style={{position: 'relative', zIndex: 5,}}>Choose your path</Text>
             <Box style={{display: 'flex', alignItems: 'center', flexDirection: 'row', position: 'relative', zIndex: 2, justifyContent: 'space-between', width: '110%'}}>
