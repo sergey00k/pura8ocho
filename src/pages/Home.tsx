@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 
 ////////// icons /////////////////
 import { IonIcon } from '@ionic/react';
-import whatsapp from '../assets/images/socialLogos/whatsapp.png'
+
 
 ////////// images ////////////////
 import sauna from '../assets/images/irlImages/sauna.jpeg'
@@ -15,7 +15,9 @@ import stoneWall from '../assets/images/irlImages/stoneWall.jpg'
 import thumbnail1 from '../assets/videos/thumbnail1.jpg'
 import thumbnail2 from '../assets/videos/thumbnail2.jpg'
 import thumbnail3 from '../assets/videos/thumbnail3.jpg'
-import starrySky from '../assets/images/nightsky.jpg'
+//import starrySky from '../assets/images/nightsky.jpg'
+import starrySky from '../assets/images/stars1.jpg'
+
 
 ////////// videos ///////////////
 /*import videoOne from '../assets/videos/video-one.mp4'
@@ -160,25 +162,26 @@ const Home: React.FC = () => {
 
         </Box>
         
-        <Box style={{backgroundColor: 'black', position: 'relative', zIndex: 2, width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 260}}>
-          <Text customCss={headerTextStyle} style={{ marginLeft: 32, width: '100%', marginTop: 20}}>Check out the atmosphere...</Text>
+        <Box style={{backgroundColor: 'black', position: 'relative', zIndex: 2, width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '36vh'}}>
+          <Text customCss={headerTextStyle} style={{ marginLeft: 32, width: '100%', position: 'relative', zIndex: 5, marginTop: 20}}>Check out the atmosphere...</Text>
+
           <Box style={{display: 'flex',  flexDirection: 'row', position: 'relative', width: '100%'}}>
             <VideoPlayer videoPath={require('../assets/videos/video-one.mp4')} thumbnailPath={thumbnail1}/>
             <VideoPlayer videoPath={require('../assets/videos/video2.mp4')} thumbnailPath={thumbnail2}/>
             <VideoPlayer videoPath={require('../assets/videos/video3.mp4')} thumbnailPath={thumbnail3}/>
           </Box>
         </Box>
-        <Box style={{backgroundColor: 'black', overflow: 'hidden', position: 'relative', zIndex: 1, paddingTop: screenHeight * 0.08, paddingBottom: screenHeight * 0.04, width: '100%', display: 'flex', flexDirection: 'column', height: screenHeight * 0.54,}}>
+        <Box style={{backgroundColor: 'black', overflow: 'hidden', position: 'relative', zIndex: 1, paddingTop: screenHeight * 0.04, paddingBottom: screenHeight * 0.04, width: '100%', display: 'flex', flexDirection: 'column', height: screenHeight * 0.52,}}>
           
-            <Text customCss={headerTextStyle} style={{ marginTop: 0, marginBottom: screenHeight * 0.064, marginLeft: 32,  position: 'relative', zIndex: 4}}>About Pura8ocho</Text>
+            <Text customCss={headerTextStyle} style={{ marginTop: 0, marginBottom: screenHeight * 0.06, marginLeft: 32,  position: 'relative', zIndex: 4}}>About Pura8ocho</Text>
             <RotatingImage 
         src={starrySky} 
         alt="Starry Sky"
       />
-                <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 3, opacity: 0.35, width: '100%', height: screenHeight * 0.8, top: -(screenHeight * 0.05), alignItems: 'center'}}></Box>
+                <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 3, opacity: 0.4, width: '100%', height: screenHeight * 0.8, top: -(screenHeight * 0.05), alignItems: 'center'}}></Box>
 
-            <Box style={{ width: '83%',marginLeft: 32,  position: 'relative', zIndex: 4, borderBottomWidth: 1, borderTopWidth: 1, borderTopStyle: 'solid',borderBottomStyle: 'solid', paddingTop: 20, paddingBottom: 20, borderColor: 'white'}}>
-              <Text customCss={bodyTextStyle} >Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum v vLorem ipsum Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum</Text>
+            <Box style={{ width: '83%',marginLeft: 32, opacity: 0.8,  position: 'relative', zIndex: 4, borderBottomWidth: 1, borderTopWidth: 1, borderTopStyle: 'solid',borderBottomStyle: 'solid', paddingTop: 20, paddingBottom: 20, borderColor: 'white'}}>
+              <Text customCss={bodyTextStyle} style={{margin: 0}} >Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum v vLorem ipsum Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum</Text>
             </Box>
         </Box>
         <Box style={{backgroundColor: 'black', width: screenWidth, display: 'flex',overflow: 'hidden', position: 'relative', flexDirection: 'column', height: 230, alignItems: 'center'}}>
@@ -207,7 +210,6 @@ const Home: React.FC = () => {
             <Button customCss={css`margin-top: 0px; margin-bottom: 0px;`} onClick={() => navigate('/booking')} text={'Book a sauna'} />
             <Button onClick={() => navigate('/bookingPrivate')} text={'Book a private sauna'} />
           </Box>
-          <BottomGradientBox customStyle={{top: 0, height: 26, width: '100%'}} />
           <TopGradientBox customStyle={{top: undefined, bottom: 0, height: 26, width: '100%'}} />
         </Box>
         <Box style={{ padding: 16, alignItems: 'center'}}>

@@ -23,6 +23,7 @@ import Sauna from './pages/Sauna';
 import Rooms from './pages/Rooms';
 import Success from './pages/Success';
 import Info from './pages/Info';
+import SuccessPuraStay from './pages/SuccessPuraStay';
 
 
 ////////// animation imports ///////////////
@@ -129,7 +130,7 @@ const HeaderMenu: React.FC = () => {
     // Disable scroll on '/allBookings' route
     document.body.style.overflowX = 'hidden';
     document.documentElement.style.overflowX = 'hidden'; 
-    if ((location.pathname === '/allBookings') || (location.pathname === '/sauna') || (location.pathname === '/success')) {
+    if ((location.pathname === '/allBookings') || (location.pathname === '/sauna') || (location.pathname === '/success') || (location.pathname === '/rooms') || (location.pathname === '/successPuraStay')) {
       console.log('Disabling scroll for /allBookings');
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';  // Ensure html element is also affected
@@ -151,7 +152,7 @@ const HeaderMenu: React.FC = () => {
 
   return (
     <div>
-      <header style={{ paddingRight: '20px', height: 60, paddingLeft: '20px', background: 'black' }}>
+      <header style={{ paddingRight: '20px', height: '8vh', position: 'relative',zIndex: 5, paddingLeft: '20px', background: 'black' }}>
         <nav>
           <ul style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', listStyle: 'none' }}>
             <div></div>
@@ -165,6 +166,7 @@ const HeaderMenu: React.FC = () => {
         <Slide direction="left" style={{ outline: 'none' }} in={isModalOpen} mountOnEnter unmountOnExit>
         <Box 
           sx={{
+            zIndex: 9,
             position: 'absolute',
             justifyContent: 'space-between',
             top: 0,
@@ -233,6 +235,7 @@ const App: React.FC = () => {
         <Route path="/rooms" element={<Rooms />} />
         <Route path="/success" element={<Success />} />
         <Route path="/info" element={<Info />} />
+        <Route path="/successPuraStay" element={<SuccessPuraStay />} />
       </Routes>
     </Router>
   );

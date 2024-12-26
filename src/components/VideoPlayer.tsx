@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { IonIcon } from '@ionic/react';
 import { play } from 'ionicons/icons';
+import { Box } from '@mui/material';
+
 
 
 
@@ -57,9 +59,10 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoPath, thumbnailPath, cus
           }}
         >
           <img src={thumbnailPath} style={{ width: screenWidth * 0.333, height: screenHeight * 0.3, objectFit: 'cover', position: 'absolute', zIndex: 1,}} />
+          <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 3, opacity: 0.35, width: screenWidth * 0.33333, height: screenHeight * 0.3, alignItems: 'center'}}></Box>
 
           <IonIcon     icon={play} size={'40px'}    style={{
-              zIndex: 2,
+              zIndex: 5,
               position: 'relative',
               color: 'white',
               height: screenWidth * 0.08, width: screenWidth * 0.08,

@@ -23,6 +23,10 @@ import { doc, setDoc, updateDoc, query, collection, getDocs, where } from "fireb
 import { Modal, Box, Slide } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
+const screenWidth = window.innerWidth;
+const screenHeight = window.innerHeight;
+const isLargeScreen = (screenWidth >= 400 && screenHeight >= 730);
+
 
 const headerTextStyle = css`
   color: white;
@@ -58,7 +62,7 @@ const AllBookings: React.FC = () => {
             flex: 1,
             flexDirection: 'column',
             justifyContent: 'space-between',
-            minHeight: '82vh',
+            minHeight: isLargeScreen ? '84vh' : '82vh',
             }}
         >
             <BottomGradientBox />

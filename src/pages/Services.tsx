@@ -34,6 +34,18 @@ import { Modal, Box, Slide, Button } from '@mui/material';
 
 import { TopGradientBox, BottomGradientBox } from '../components/Gradient';
 
+const screenWidth = window.innerWidth;
+const screenHeight = window.innerHeight;
+const isLargeScreen = (screenWidth >= 400 && screenHeight >= 730);
+
+let headerFontSize = '22';
+let bodyFontSize = '14';
+
+if (screenHeight > 738) {
+  headerFontSize = '26'
+  bodyFontSize = '16'
+}
+
 const headerTextStyle = css`
   color: white;
   font-size: 22px;
@@ -43,11 +55,13 @@ const headerTextStyle = css`
 const bodyTextStyle1 = css`
   color: white;
   font-size: 15px;
+  opacity: 0.8;
   `;
 
 const bodyTextStyle2 = css`
   color: white;
-  font-size: 14px;
+  font-size: ${bodyFontSize}px;
+  opacity: 0.8;
   `;
 
 const extraSmallTextStyle = css`
@@ -72,7 +86,7 @@ const Services: React.FC = () => {
           <Box style={{height: '70vh',position: 'relative', width: '100%'}}>
             <BottomGradientBox customStyle={{height: '6vh', top: 0, background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0))'}} />
             <ScrollAnimation startOffsetPoint={0}>
-              <Text customCss={headerTextStyle} style={{marginLeft: '4vw'}}>PuraSauna</Text>
+              <Text customCss={headerTextStyle} style={{marginLeft: '4vw', marginTop: '5vh'}}>PuraSauna</Text>
               <Text customCss={bodyTextStyle1} style={{marginLeft: '4vw', marginTop: '8vh', width: '40vw', lineHeight: 1.8}}>Bask in the heat and peacful relaxation of PuraSauna where state of mind is purified and refreshed.</Text>
             </ScrollAnimation>
             <img src={hats} style={{height: '70vh', position: 'absolute', zIndex: 1, width: '100%'}}></img>
@@ -140,7 +154,7 @@ const Services: React.FC = () => {
 
           <Box style={{height: '70vh',position: 'relative', width: '100%'}}>
             <BottomGradientBox customStyle={{height: '6vh', top: 0, background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0))'}} />
-            <ScrollAnimation startOffsetPoint={1600}>
+            <ScrollAnimation startOffsetPoint={isLargeScreen ? 1880 : 1600}>
               <Text customCss={headerTextStyle} style={{marginLeft: '4vw'}}>PuraStay</Text>
               <Text customCss={bodyTextStyle1} style={{marginLeft: '4vw', marginTop: '2vh', width: '54vw', lineHeight: 1.8}}>Step into our cozy bungalows surrounded by nature and positive aura.</Text>
             </ScrollAnimation>

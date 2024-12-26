@@ -8,8 +8,9 @@ import { IonIcon } from '@ionic/react';
 import whatsapp from '../assets/images/socialLogos/whatsapp.png'
 
 // images
-import firePeople from '../assets/images/irlImages/firePeople.jpeg'
 import check from '../assets/images/check-icon.png'
+import upstairs from '../assets/images/ServicesImages/upstairs.jpeg'
+
 
 
 ////////// components /////////////////
@@ -58,7 +59,7 @@ const extraSmallTextStyle = css`
 
 
 
-const Success: React.FC = () => {
+const SuccessPuraStay: React.FC = () => {
     const navigate = useNavigate(); 
 
 
@@ -77,14 +78,14 @@ const Success: React.FC = () => {
             minHeight: '82vh',
             }}
         >
-            <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 2, opacity: 0.25, width: '100%', height: '100%', alignItems: 'center'}}></Box>
-            <img src={firePeople} style={{height: '90%', position: 'absolute', zIndex: 1, width: '100%'}}></img>
-            <Box style={{marginLeft: undefined, marginTop: '4vh', width: '100%', alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
+            <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 2, opacity: 0.25, width: '100%', height: '104%', alignItems: 'center'}}></Box>
+            <img src={upstairs} style={{height: '90%', position: 'absolute', zIndex: 1, width: '100%'}}></img>
+            <Box style={{marginLeft: undefined, width: '100%', marginTop: '4vh', alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
               <Box style={{position: 'relative', zIndex: 5, marginRight: '2vw', display: 'flex', marginBottom: '2vh', alignItems: 'center',}}>
                   <img src={check} style={{height: '3.6vh', width: '3.6vh', marginRight: '3vw', marginBottom: 0,}}></img>
                   <Text customCss={headerTextStyle} style={{position: 'relative', zIndex: 5, margin: 0}}>Success!</Text>
               </Box>
-              <Text customCss={bodyTextStyle} style={{position: 'relative', zIndex: 5, textAlign: 'center', width: '60vw'}}>Your email is your ticket/s, please show it to us upon arrival.</Text>
+              <Text customCss={bodyTextStyle} style={{position: 'relative', zIndex: 5, textAlign: 'center', width: '60vw'}}>Your email is your booking, please show it to us upon your arrival.</Text>
             </Box>
             <Box style={{width: '100vw', zIndex: 3, alignItems: 'center', display: 'flex', flexDirection: 'column', marginBottom: '2.6vh'}}>
               <Button text={'Return home'} onClick={() => { navigate('/'); document.body.style.overflow = 'auto';}} customCss={css`width: 52vw; height: 6vh; z-index: 3;`}></Button>
@@ -96,4 +97,4 @@ const Success: React.FC = () => {
     )
 }
 
-export default Success
+export default SuccessPuraStay

@@ -38,6 +38,7 @@ const headerTextStyle = css`
 const bodyTextStyle = css`
   color: white;
   font-size: 14px;
+  opacity: 0.7;
   `;
 
 const extraSmallTextStyle = css`
@@ -81,7 +82,7 @@ const Info: React.FC = () => {
             <Box style={{position: 'relative', width: '100%', display: 'flex', alignItems: 'flex-start', flexDirection: 'column', height: '72vh',}}>
             <BottomGradientBox customStyle={{height: '6vh', top: 0, background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0))'}} />
 
-                <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 2, opacity: 0.5, width: '100%', height: '72vh', alignItems: 'center'}}></Box>
+                <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 2, opacity: 0.54, width: '100%', height: '72vh', alignItems: 'center'}}></Box>
                 <img src={wood} style={{height: '72vh', position: 'absolute', zIndex: 1, width: '100%'}}></img>
                 <Box style={{marginLeft: '7vw', marginTop: '1vh', paddingBottom: '2vh', marginBottom: '3vh', borderColor: 'white', borderBottomStyle: 'solid',borderBottomWidth: '0.5px', position: 'relative', zIndex: 3, width: '86vw'}}>
                     <Text customCss={headerTextStyle} style={{position: 'relative', marginBottom: 0}}>Where is Pura8ocho?</Text>
@@ -102,7 +103,7 @@ const Info: React.FC = () => {
             <Box style={{position: 'relative', width: '100%', display: 'flex', alignItems: 'flex-start', flexDirection: 'column', height: '72vh',}}>
             <BottomGradientBox customStyle={{height: '4vh', top: 0}}/>
 
-                <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 2, opacity: 0.4, width: '100%', height: '72vh', alignItems: 'center'}}></Box>
+                <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 2, opacity: 0.54, width: '100%', height: '72vh', alignItems: 'center'}}></Box>
                 <img src={fire} style={{height: '72vh', position: 'absolute', zIndex: 1, width: '100%'}}></img>
                 <Box style={{marginLeft: '7vw', marginTop: '1vh', paddingBottom: '2vh', marginBottom: '3vh', borderColor: 'white', borderBottomStyle: 'solid',borderBottomWidth: '0.5px', position: 'relative', zIndex: 3, width: '86vw'}}>
                     <Text customCss={headerTextStyle} style={{position: 'relative', marginBottom: 0}}>Where is Pura8ocho?</Text>
@@ -125,7 +126,7 @@ const Info: React.FC = () => {
 
             <TopGradientBox customStyle={{height: '6vh', top: undefined, bottom: 0, background: 'linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0))'}}/>
 
-                <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 2, opacity: 0.6, width: '100%', height: '72vh', alignItems: 'center'}}></Box>
+                <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 2, opacity: 0.64, width: '100%', height: '72vh', alignItems: 'center'}}></Box>
                 <img src={sofas} style={{height: '72vh', position: 'absolute', zIndex: 1, width: '100%'}}></img>
                 <Box style={{marginLeft: '7vw', marginTop: '1vh', paddingBottom: '2vh', marginBottom: '3vh', borderColor: 'white', borderBottomStyle: 'solid',borderBottomWidth: '0.5px', position: 'relative', zIndex: 3, width: '86vw'}}>
                     <Text customCss={headerTextStyle} style={{position: 'relative', marginBottom: 0}}>Where is Pura8ocho?</Text>
