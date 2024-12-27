@@ -10,7 +10,7 @@ import { menuOutline } from 'ionicons/icons';
 
 
 import { Modal, Box, Slide } from '@mui/material';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, } from 'react-router-dom';
 
 
 ////////// page imports ///////////////
@@ -128,10 +128,10 @@ const HeaderMenu: React.FC = () => {
 
   useEffect(() => {
     // Disable scroll on '/allBookings' route
+    window.scrollTo(0, 0);
     document.body.style.overflowX = 'hidden';
     document.documentElement.style.overflowX = 'hidden'; 
     if ((location.pathname === '/allBookings') || (location.pathname === '/sauna') || (location.pathname === '/success') || (location.pathname === '/rooms') || (location.pathname === '/successPuraStay')) {
-      console.log('Disabling scroll for /allBookings');
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';  // Ensure html element is also affected
     } else {
@@ -210,9 +210,11 @@ const App: React.FC = () => {
       const img = new Image();
       const img2 = new Image();
       const img3 = new Image();
+      const img4 = new Image();
       img.src = './src/assets/images/backgrounds/thePath.webp'; // Preload image ../assets/images/ServicesImages/wideshot2.jpeg
       img2.src = './src/assets/images/ServicesImages/wideshot2.jpeg';
-      img3.src = './src/assets/images/ServicesImages/hats.jpeg'
+      img3.src = './src/assets/images/ServicesImages/hats.jpeg';
+      img4.src = './src/assets/images/irlImages/room.jpeg';
   }, []);
 
 

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 ////////// icons /////////////////
 import { IonIcon } from '@ionic/react';
@@ -33,10 +33,11 @@ import Footer from '../components/Footer'
 import Button from '../components/Button'
 import VideoPlayer from '../components/VideoPlayer';
 import { TopGradientBox, BottomGradientBox } from '../components/Gradient';
+import ScheduleModal from '../components/ScheduleModal';
 
 ///////// firebase database ////////////////
 import { db } from '../secrets/firebaseConfig';
-import { doc, setDoc, updateDoc, query, collection, getDocs, where } from "firebase/firestore"; 
+import { doc, setDoc, updateDoc, query, collection, getDocs, getDoc, where } from "firebase/firestore"; 
 
 import { Modal, Box, Slide } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -51,6 +52,7 @@ if (screenHeight > 738) {
   headerFontSize = '26'
   bodyFontSize = '20'
 }
+
 
 const bodyTextStyle = css`
   color: white;
@@ -87,15 +89,17 @@ const rotate = keyframes`
 
   const RotatingImage = styled.img`
   animation: ${rotate} 60s linear infinite;
-  height: ${screenHeight}px;
+  height: ${screenHeight * 0.9}px;
   object-fit: cover;
   position: absolute;
   z-index: 1;
-  width: 190%;
-  top: -140px;
-  left: -140px
+  width: 180%;
+  top: -12vh;
+  left: -40vw;
 `;
 
+// w : 190% h : ${screenHeight}px top: -140px; left : -140px
+//  animation: ${rotate} 60s linear infinite;
 
 const fadeInHeader = keyframes`
 0% {
@@ -120,10 +124,63 @@ const fadeInStyle = css`
 `;
 
 
+
+
 const Home: React.FC = () => {
   const navigate = useNavigate(); 
 
+  const [scheduleModalOn, setScheduleModalOn] = useState(false)
+  const [displayedSchedule, setDisplayedSchedule] = useState<any>(null)
+
+  const [publicSchedule, setPublicSchedule] = useState<any>(null)
+  const [privateSchedule, setPrivateSchedule] = useState<any>(null)
+  const [womensOnlySchedule, setWomensOnlySchedule] = useState<any>(null)
+
   
+  useEffect(() => {
+    const asyncFunc = async (docName: string, type: string) => {
+      const schedulesListRef = doc(db, 'schedulesList', docName);
+      const docSnapshot = await getDoc(schedulesListRef);
+
+      if (docSnapshot.exists()) {
+        const schedules = docSnapshot.data();
+        const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+        const publicSchedules = days
+        .map((day, index) => {
+          const times = schedules[day.toLowerCase()]; // Get the times for the day
+          if (times.length === 0) {
+            return null; // Return `null` instead of `undefined`
+          }
+          return {
+            id: index,
+            time: times.join(', '), // Combine all times into a single string
+            day,
+            type, // Assuming `type` is a constant or variable available in scope
+          };
+        })
+        .filter(item => item !== null); // Filter out `null` values
+
+        if (docName === 'Public') {
+          setPublicSchedule(publicSchedules)
+        } else if (docName === 'Private') {
+          setPrivateSchedule(publicSchedules)
+        } else {
+          setWomensOnlySchedule(publicSchedules)
+        }
+
+      } else {
+        console.log('No such document!');
+      }
+    };
+
+    asyncFunc('Public', 'Public');
+    asyncFunc('Private', 'Private');
+    asyncFunc('WomensOnly', 'Womens Only');
+
+
+  }, [db]);
+
 
     return (
       <Box
@@ -155,8 +212,8 @@ const Home: React.FC = () => {
             <Text customCss={fadeInStyle} style={{  zIndex: 3, marginLeft: 32, opacity: 0.8, marginTop: 32}}>You'll find a hot natural sauna,<br />a flower filled ice bath,<br />a warm healthy environment<br /> and a community like no other.<br /><br />Here we all share the<br /> same goal of relaxing,<br /> reenergizing, connecting.</Text>
           </Box>
           <Box style={{display: 'flex', marginRight: 32, zIndex: 4, flexDirection: 'column',}}>
-            <Button customCss={css`margin-top: 0px; margin-bottom: 0px;`} onClick={() => navigate('/booking')} text={'Book a sauna'} />
-            <Button onClick={() => navigate('/bookingPrivate')} text={'Book a private sauna'} />
+            <Button customCss={css`margin-top: 0px; margin-bottom: 0px;`} onClick={() => navigate('/services')} text={'See our services'} />
+            <Button onClick={() => navigate('/allBookings')} text={'Make a booking'} />
           </Box>
           <TopGradientBox customStyle={{top: undefined, bottom: 0, height: 26, width: '100%'}} />
 
@@ -191,11 +248,11 @@ const Home: React.FC = () => {
           
 
           <Box style={{ flexDirection: 'column', alignItems: 'center', width: '90%', zIndex: 4, justifyContent: 'space-between', display: 'flex'}}>
-            <Button customCss={css`height: 36px; width: 180px; margin-top: 0px; margin-bottom: 4px`} onClick={() => navigate('/bookingPrivate')} text={'Public'} />
+            <Button customCss={css`height: 36px; width: 180px; margin-top: 0px; margin-bottom: 4px`} onClick={() => {setScheduleModalOn(true); setDisplayedSchedule(publicSchedule) }} text={'Public'} />
 
-            <Button customCss={css`height: 36px; width: 180px; margin-bottom: 4px`} onClick={() => navigate('/bookingPrivate')} text={"Women's only"} />
+            <Button customCss={css`height: 36px; width: 180px; margin-bottom: 4px`} onClick={() => {setScheduleModalOn(true); setDisplayedSchedule(womensOnlySchedule) }} text={"Women's only"} />
 
-            <Button customCss={css`height: 36px; width: 180px; margin-bottom: 4px`} onClick={() => navigate('/bookingPrivate')} text={'Private'} />
+            <Button customCss={css`height: 36px; width: 180px; margin-bottom: 4px`} onClick={() => {setScheduleModalOn(true); setDisplayedSchedule(privateSchedule) }} text={'Private'} />
 
           </Box>
 
@@ -207,14 +264,15 @@ const Home: React.FC = () => {
           <img src={fire} style={{height: 520, objectFit: 'cover', position: 'absolute', zIndex: 1, width: '100%'}}></img>
           <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 2, opacity: 0.3, width: '100%', height: 520, alignItems: 'center'}}></Box>
           <Box style={{display: 'flex', zIndex: 4,marginRight: 32, flexDirection: 'column',}}>
-            <Button customCss={css`margin-top: 0px; margin-bottom: 0px;`} onClick={() => navigate('/booking')} text={'Book a sauna'} />
-            <Button onClick={() => navigate('/bookingPrivate')} text={'Book a private sauna'} />
+            <Button customCss={css`margin-bottom: 4vh;`} onClick={() => navigate('/sauna')} text={'Book a sauna'} />
           </Box>
           <TopGradientBox customStyle={{top: undefined, bottom: 0, height: 26, width: '100%'}} />
         </Box>
         <Box style={{ padding: 16, alignItems: 'center'}}>
           <Footer />
         </Box>
+
+        <ScheduleModal isVisible={scheduleModalOn} onClose={() => setScheduleModalOn(false)} schedules={displayedSchedule} />
       </Box>
     );
   };
