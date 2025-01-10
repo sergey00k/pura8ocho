@@ -139,40 +139,53 @@ const Home: React.FC = () => {
   
   useEffect(() => {
     const asyncFunc = async (docName: string, type: string) => {
-      const schedulesListRef = doc(db, 'schedulesList', docName);
-      const docSnapshot = await getDoc(schedulesListRef);
-
-      if (docSnapshot.exists()) {
-        const schedules = docSnapshot.data();
-        const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-
-        const publicSchedules = days
-        .map((day, index) => {
-          const times = schedules[day.toLowerCase()]; // Get the times for the day
-          if (times.length === 0) {
-            return null; // Return `null` instead of `undefined`
+      try {
+        const schedulesListRef = doc(db, 'schedulesList', docName);
+        const docSnapshot = await getDoc(schedulesListRef);
+    
+        if (docSnapshot.exists()) {
+          const schedules = docSnapshot.data();
+          const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']; // FRONTEND EXPECTS ALL OF THESE DAYS TO BE PRESENT IN DATABASE
+    
+          const publicSchedules = days
+            .map((day, index) => {
+              const times = schedules[day.toLowerCase()];
+    
+              // Ensure `times` is an array and has values
+              if (Array.isArray(times)) {
+                if (times.length === 0) {
+                  return null; // Return null if there are no times
+                }
+    
+                return {
+                  id: index,
+                  time: times.join(' - '), // Combine times into a single string
+                  day,
+                  type, // The provided type
+                };
+              } else {
+                console.warn(`Skipping ${day} because it's not an array or is undefined.`);
+                return null; // Return null if times is not an array or undefined
+              }
+            })
+            .filter(item => item !== null); // Filter out any null values
+    
+          // Assign schedules to the corresponding state
+          if (docName === 'Public') {
+            setPublicSchedule(publicSchedules);
+          } else if (docName === 'Private') {
+            setPrivateSchedule(publicSchedules);
+          } else {
+            setWomensOnlySchedule(publicSchedules);
           }
-          return {
-            id: index,
-            time: times.join(', '), // Combine all times into a single string
-            day,
-            type, // Assuming `type` is a constant or variable available in scope
-          };
-        })
-        .filter(item => item !== null); // Filter out `null` values
-
-        if (docName === 'Public') {
-          setPublicSchedule(publicSchedules)
-        } else if (docName === 'Private') {
-          setPrivateSchedule(publicSchedules)
         } else {
-          setWomensOnlySchedule(publicSchedules)
+          console.log('No such document!');
         }
-
-      } else {
-        console.log('No such document!');
+      } catch (error) {
+        console.error('Error fetching schedules:', error);
       }
     };
+    
 
     asyncFunc('Public', 'Public');
     asyncFunc('Private', 'Private');

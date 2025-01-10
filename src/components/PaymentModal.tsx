@@ -11,10 +11,15 @@ import { doc, setDoc, updateDoc, query, collection, getDocs, where } from "fireb
 import { Modal, Box, Slide } from '@mui/material';
 import Text from './Text';
 import Button from './Button';
+import CircularProgress from "@mui/material/CircularProgress";
+
+
+
 
 interface PaymentModalProps {
   isVisible: boolean;
   onClose: (paid?: any) => void;
+  whatsAppLink: string;
 }
 
 const screenWidth = window.innerWidth
@@ -41,7 +46,7 @@ const headerTextStyle = css`
 
 const stripePromise = loadStripe('pk_test_51PVQObAxfjIWgFbrSwnC54rN9jy1J7nnjT8R2dLt4OKpjRVemzRNCtFupPcxhWUkw9uNHf3zcnkpIf3Z3RQswoB100F74OiGHP');
 
-const PaymentModal: React.FC<PaymentModalProps> = ({ isVisible, onClose }) => {
+const PaymentModal: React.FC<PaymentModalProps> = ({ isVisible, onClose, whatsAppLink }) => {
   const stripe = useStripeJS();
   const elements = useElements();
   const [chosenPaymentMethod, setChosenPaymentMethod] = useState("");
@@ -52,13 +57,12 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isVisible, onClose }) => {
   const [password, setPassword] = useState("")
 
 
-  const [ovoCustomerId, setOvoCustomerId] = useState("");
-  const [ovoCustomerName, setOvoCustomerName] = useState("");
-  const [ovoCustomerPhone, setOvoCustomerPhone] = useState("");
-  const [ovoCustomerEmail, setOvoCustomerEmail] = useState("");
+  const [showSpinner, setShowSpinner] = useState(false);
+
 
   const [emailExistsError, setEmailExistsError] = useState(false);
   const [paymentError, setPaymentError] = useState(false);
+  const [emailNotValid, setEmailNotValid] = useState(false)
 
   useEffect(() => {
     if (chosenPaymentMethod.length > 1) {
@@ -151,61 +155,56 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isVisible, onClose }) => {
   };
 
   const userEnteredEmail = async (email: string, password: string) => {
-    setEmailExistsError(false)
+    setShowSpinner(true)
     const lowerCaseEmail = email.toLowerCase()
     setEmail(lowerCaseEmail)
 
-    const emailListRef = collection(db, 'emailList');
-    const q = query(emailListRef, where('email', '==', lowerCaseEmail));
-    const querySnapshot = await getDocs(q);
 
-    let passwordMatch = false;
-    let paidUser = false
 
-    querySnapshot.forEach(doc => {
-      const profile = doc.data();
-      if (profile.password === password) {
-        passwordMatch = true;
-        paidUser = profile.paid
-      }
-    });
 
-    if (!passwordMatch && !querySnapshot.empty) {
-      setEmailExistsError(true)
-      return
-    }
+
+
+
     
     try {
-      await setDoc(doc(db, 'emailList', lowerCaseEmail), {
-        email: lowerCaseEmail,
-        password: password,
-        paid: paidUser
-      });
+      if (lowerCaseEmail.includes('@')) {
+        await setDoc(doc(db, 'emailList', lowerCaseEmail), {
+          email: lowerCaseEmail,
+        });
+
+        window.location.href = whatsAppLink;
+      }
+      
     } catch (error) {
       console.error("Error updating document: ", error);
+      setShowSpinner(false)
+
     }
-    if (lowerCaseEmail.includes('@')) {
-      setEmailConfirmed(true)
+    if (!lowerCaseEmail.includes('@')) {
+      setEmailNotValid(true)
+      setShowSpinner(false)
     }
   }
+
+
 
   
 
   
 
   return (
-    <Modal open={isVisible} onClose={() => onClose(true)} style={{height: '80vh', alignItems: 'center', display: 'flex', justifyContent: 'center', width: '100vw'}}>
+    <Modal open={isVisible} onClose={() => onClose()} style={{height: '80vh', alignItems: 'center',  display: 'flex', justifyContent: 'center', width: '100vw'}}>
             <Slide direction="up" style={{ outline: 'none' }} in={isVisible} mountOnEnter unmountOnExit>
 
       <Box style={{...styles.modalContent, height: !emailConfirmed ? '30vh' : '40vh'}}>
         {(!emailConfirmed || (!email.includes('@'))) ? ( 
           <Box style={{width: '70%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
             <Text customCss={headerTextStyle} style={{...styles.modalTitle, marginBottom: emailExistsError ? 6 : undefined}}>Enter your email</Text>
-            {emailExistsError && (<Text style={{color: 'red', textAlign: 'center', fontFamily: 'Montserrat-Regular', fontSize: 12, marginBottom: 4}}>Email already exists and entered password was wrong.</Text>)}
+            {emailNotValid && (<Text style={{color: 'red', textAlign: 'center', fontSize: 12, marginBottom: 4}}>Please enter a valid email.</Text>)}
             <Box style={{...styles.inputGradient, marginTop: 12}}>
                 <input style={{...styles.input, fontSize: 16, paddingTop: 6, paddingBottom: 6}} placeholder="Email" value={email} onChange={(event) => { setEmail(event.target.value) } } />
             </Box>
-            <Button text={'CONFIRM'} customCss={{ height: 40, width: '64%', marginTop: 15}} onClick={() => userEnteredEmail(email, password)} />
+            {showSpinner ? <CircularProgress /> : <Button text={'CONFIRM'} customCss={{ height: 40, width: '64%', marginTop: 15}} onClick={() => userEnteredEmail(email, password)} />}
 
         </Box>) : (
         <>

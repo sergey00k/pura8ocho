@@ -54,7 +54,7 @@ const Footer: React.FC = () => {
     `;
   
     const externalUrlRedirection = (url: string) => {
-      window.location.href = url;
+      window.open(url, '_blank'); 
     };
   
     const sendEmail = async ( email: string ) => {
@@ -98,11 +98,11 @@ const Footer: React.FC = () => {
         <Box sx={{ display: 'flex', flexDirection: 'row', marginLeft: '2vw', justifyContent: 'space-between' }}>
           <Box sx={{ justifyContent: 'space-between', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', backgroundColor: 'transparent', width: '80%' }} >
             <Text customCss={headerTextStyle}>Socials</Text>
-            <button onClick={() => externalUrlRedirection('url')} style={{ height: 40,paddingLeft: 0, border: 'none', background: 'none', alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
+            <button onClick={() => externalUrlRedirection('https://wa.me/6287885191204')} style={{ height: 40,paddingLeft: 0, border: 'none', background: 'none', alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
               <IonIcon icon={logoWhatsapp} style={{color: 'white', height: 18, width: 18, marginRight: 10}} />
               <Text customCss={bodyTextStyle} >WhatsApp</Text>
             </button>
-            <button onClick={() => externalUrlRedirection('url')} style={{ height: 40,paddingLeft: 0, border: 'none', background: 'none', alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
+            <button onClick={() => externalUrlRedirection('https://www.instagram.com/pura8ocho/')} style={{ height: 40,paddingLeft: 0, border: 'none', background: 'none', alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
               <IonIcon icon={logoInstagram} style={{color: 'white', height: 18, width: 18, marginRight: 10}} />
               <Text customCss={bodyTextStyle}>Instagram</Text>
             </button>

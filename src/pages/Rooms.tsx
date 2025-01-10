@@ -133,6 +133,14 @@ const Rooms: React.FC = () => {
     return dayDifference;
   };
 
+  const phoneNumber = '6287885191204';  // The phone number in international format (no plus sign)
+  const message = 'Hello, I need assistance';  // The pre-filled message
+
+  // URL encode the message to ensure it works in the query string
+  const encodedMessage = encodeURIComponent(message);
+
+  const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
   useEffect(() => {
     if (!checkInDate || !checkOutDate) {return}
 
@@ -358,7 +366,7 @@ const Rooms: React.FC = () => {
                 </button>              
               </Box>
             </Modal>
-            <StripePaymentModalWrapper isVisible={paymentModal} onClose={(paid) => { setPaymentModal(false); if (paid) {navigate('/successPuraStay')}}} />
+            <StripePaymentModalWrapper whatsAppLink={whatsappLink} isVisible={paymentModal} onClose={(paid) => { setPaymentModal(false); if (paid) {navigate('/successPuraStay')}}} />
 
         </Box>
     )
