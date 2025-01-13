@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.03cb39dd.css",
-    "main.js": "/static/js/main.bccea29e.js",
+    "main.js": "/static/js/main.211bdbde.js",
     "static/js/653.5a9dd3af.chunk.js": "/static/js/653.5a9dd3af.chunk.js",
     "static/js/923.ec065f0c.chunk.js": "/static/js/923.ec065f0c.chunk.js",
     "static/js/627.9ac46d2b.chunk.js": "/static/js/627.9ac46d2b.chunk.js",
@@ -32,6 +32,7 @@
     "static/media/statuePeople.jpeg": "/static/media/statuePeople.c2787df2d2daddd377e4.jpeg",
     "static/media/hats.jpeg": "/static/media/hats.838165ef7133f07ec142.jpeg",
     "static/media/statue.jpeg": "/static/media/statue.fdf4a201dc443d706f02.jpeg",
+    "static/media/leafBrooms.jpeg": "/static/media/leafBrooms.12a633349a59ad263ffe.jpeg",
     "static/media/fireClose.jpeg": "/static/media/fireClose.c2721e459e9c3bda2782.jpeg",
     "static/media/teaClose.jpeg": "/static/media/teaClose.2a0e4a2edf348141d463.jpeg",
     "static/media/thumbnail2.jpg": "/static/media/thumbnail2.82c5db42e98731e32cc3.jpg",
@@ -40,7 +41,7 @@
     "static/media/thumbnail3.jpg": "/static/media/thumbnail3.eacc55af34f2882ebe14.jpg",
     "index.html": "/index.html",
     "main.03cb39dd.css.map": "/static/css/main.03cb39dd.css.map",
-    "main.bccea29e.js.map": "/static/js/main.bccea29e.js.map",
+    "main.211bdbde.js.map": "/static/js/main.211bdbde.js.map",
     "653.5a9dd3af.chunk.js.map": "/static/js/653.5a9dd3af.chunk.js.map",
     "923.ec065f0c.chunk.js.map": "/static/js/923.ec065f0c.chunk.js.map",
     "627.9ac46d2b.chunk.js.map": "/static/js/627.9ac46d2b.chunk.js.map",
@@ -49,6 +50,6 @@
   },
   "entrypoints": [
     "static/css/main.03cb39dd.css",
-    "static/js/main.bccea29e.js"
+    "static/js/main.211bdbde.js"
   ]
 }

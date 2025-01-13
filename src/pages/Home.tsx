@@ -17,6 +17,7 @@ import thumbnail2 from '../assets/videos/thumbnail2.jpg'
 import thumbnail3 from '../assets/videos/thumbnail3.jpg'
 //import starrySky from '../assets/images/nightsky.jpg'
 import starrySky from '../assets/images/stars1.jpg'
+import leafBrooms from '../assets/images/backgrounds/leafBrooms.jpeg'
 
 
 ////////// videos ///////////////
@@ -34,6 +35,8 @@ import Button from '../components/Button'
 import VideoPlayer from '../components/VideoPlayer';
 import { TopGradientBox, BottomGradientBox } from '../components/Gradient';
 import ScheduleModal from '../components/ScheduleModal';
+import ScrollAnimationHome from '../components/PresetSlideAnimation';
+
 
 ///////// firebase database ////////////////
 import { db } from '../secrets/firebaseConfig';
@@ -233,7 +236,9 @@ const Home: React.FC = () => {
         </Box>
         
         <Box style={{backgroundColor: 'black', position: 'relative', zIndex: 2, width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '36vh'}}>
-          <Text customCss={headerTextStyle} style={{ marginLeft: 32, width: '100%', position: 'relative', zIndex: 5, marginTop: 20}}>Check out the atmosphere...</Text>
+          <ScrollAnimationHome directionXY={'X'} startOffsetPoint={400} notAnimated={false} customStyle={{ marginLeft: 32, boxSizing: 'border-box',display: 'flex', justifyContent: 'space-between',flexDirection: 'column'}}>
+            <Text customCss={headerTextStyle} style={{ width: '100%', position: 'relative', zIndex: 5, marginTop: 20}}>Check out the atmosphere...</Text>
+          </ScrollAnimationHome>
 
           <Box style={{display: 'flex',  flexDirection: 'row', position: 'relative', width: '100%'}}>
             <VideoPlayer videoPath={require('../assets/videos/video-one.mp4')} thumbnailPath={thumbnail1}/>
@@ -242,42 +247,59 @@ const Home: React.FC = () => {
           </Box>
         </Box>
         <Box style={{backgroundColor: 'black', overflow: 'hidden', position: 'relative', zIndex: 1, paddingTop: screenHeight * 0.04, paddingBottom: screenHeight * 0.04, width: '100%', display: 'flex', flexDirection: 'column', height: screenHeight * 0.52,}}>
-          
-            <Text customCss={headerTextStyle} style={{ marginTop: 0, marginBottom: screenHeight * 0.06, marginLeft: 32,  position: 'relative', zIndex: 4}}>About Pura8ocho</Text>
+            <ScrollAnimationHome directionXY={'Y'} startOffsetPoint={700} notAnimated={false} customStyle={{ boxSizing: 'border-box',  position: 'relative', zIndex: 4, display: 'flex', justifyContent: 'space-between',flexDirection: 'column'}}>
+              <Text customCss={headerTextStyle} style={{ marginLeft: 32, marginTop: 0, marginBottom: screenHeight * 0.06,  position: 'relative', zIndex: 4}}>About Pura8ocho</Text>
+            </ScrollAnimationHome>
             <RotatingImage 
         src={starrySky} 
         alt="Starry Sky"
       />
                 <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 3, opacity: 0.4, width: '100%', height: screenHeight * 0.8, top: -(screenHeight * 0.05), alignItems: 'center'}}></Box>
-
+          <ScrollAnimationHome directionXY={'Y'} startOffsetPoint={700} notAnimated={false} customStyle={{ boxSizing: 'border-box',  position: 'relative', zIndex: 4, display: 'flex', justifyContent: 'space-between',flexDirection: 'column'}}>
             <Box style={{ width: '83%',marginLeft: 32, opacity: 0.8,  position: 'relative', zIndex: 4, borderBottomWidth: 1, borderTopWidth: 1, borderTopStyle: 'solid',borderBottomStyle: 'solid', paddingTop: 20, paddingBottom: 20, borderColor: 'white'}}>
               <Text customCss={bodyTextStyle} style={{margin: 0}} >Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum v vLorem ipsum Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum</Text>
             </Box>
+          </ScrollAnimationHome>
         </Box>
         <Box style={{backgroundColor: 'black', width: screenWidth, display: 'flex',overflow: 'hidden', position: 'relative', flexDirection: 'column', height: 230, alignItems: 'center'}}>
-          <img src={stoneWall} style={{width: screenWidth,position: 'absolute', zIndex: 1,  objectFit: 'cover', height: 230}}></img>
-          <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 2, opacity: 0.6, width: '100%', marginTop: -1, height: 231, alignItems: 'center'}}></Box>
-          <Text customCss={headerTextStyle} style={{marginTop: 20, marginBottom: 16, zIndex: 3,  'textAlign': 'center',}}>Sauna schedule</Text>
+          <img src={leafBrooms} style={{width: screenWidth,position: 'absolute', zIndex: 1,  objectFit: 'cover', height: 230}}></img>
+          <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 2, opacity: 0.4, width: '100%', marginTop: -1, height: 231, alignItems: 'center'}}></Box>
+          
+          <ScrollAnimationHome directionXY={'Y'} startOffsetPoint={1000} notAnimated={false} customStyle={{ boxSizing: 'border-box',  position: 'relative', zIndex: 4, display: 'flex', justifyContent: 'space-between',flexDirection: 'column'}}>
+            <Text customCss={headerTextStyle} style={{marginTop: 20, marginBottom: 16, zIndex: 3,  'textAlign': 'center',}}>Sauna schedule</Text>
+          </ScrollAnimationHome>
           
 
           <Box style={{ flexDirection: 'column', alignItems: 'center', width: '90%', zIndex: 4, justifyContent: 'space-between', display: 'flex'}}>
-            <Button customCss={css`height: 36px; width: 180px; margin-top: 0px; margin-bottom: 4px`} onClick={() => {setScheduleModalOn(true); setDisplayedSchedule(publicSchedule) }} text={'Public'} />
+            <ScrollAnimationHome directionXY={'X'} delay={300} startOffsetPoint={1000} notAnimated={false} customStyle={{ boxSizing: 'border-box',  position: 'relative', zIndex: 4, display: 'flex', justifyContent: 'space-between',flexDirection: 'column'}}>
+              <Button customCss={css`height: 36px; width: 180px; margin-top: 0px; margin-bottom: 4px`} onClick={() => {setScheduleModalOn(true); setDisplayedSchedule(publicSchedule) }} text={'Public'} />
+            </ScrollAnimationHome>
 
-            <Button customCss={css`height: 36px; width: 180px; margin-bottom: 4px`} onClick={() => {setScheduleModalOn(true); setDisplayedSchedule(womensOnlySchedule) }} text={"Women's only"} />
 
-            <Button customCss={css`height: 36px; width: 180px; margin-bottom: 4px`} onClick={() => {setScheduleModalOn(true); setDisplayedSchedule(privateSchedule) }} text={'Private'} />
+            <ScrollAnimationHome directionXY={'X'} directionLeftRight={'-'} delay={600} startOffsetPoint={1000} notAnimated={false} customStyle={{ boxSizing: 'border-box',  position: 'relative', zIndex: 4, display: 'flex', justifyContent: 'space-between',flexDirection: 'column'}}>
+              <Button customCss={css`height: 36px; width: 180px; margin-bottom: 4px`} onClick={() => {setScheduleModalOn(true); setDisplayedSchedule(womensOnlySchedule) }} text={"Women's only"} />
+            </ScrollAnimationHome>
+
+            <ScrollAnimationHome directionXY={'X'} startOffsetPoint={1000} delay={900} notAnimated={false} customStyle={{ boxSizing: 'border-box',  position: 'relative', zIndex: 4, display: 'flex', justifyContent: 'space-between',flexDirection: 'column'}}>
+              <Button customCss={css`height: 36px; width: 180px; margin-bottom: 4px`} onClick={() => {setScheduleModalOn(true); setDisplayedSchedule(privateSchedule) }} text={'Private'} />
+            </ScrollAnimationHome>
+
 
           </Box>
 
         </Box>
         <Box style={{backgroundColor: 'black', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 520, position: 'relative', alignItems: 'flex-end'}}>
           <Box style={{ zIndex: 3, width: '100%' }}>
-            <Text customCss={headerTextStyle} style={{width: '100%', zIndex: 3, marginLeft: 32, marginTop: 40}}>Experience it for yourself.</Text>
+            <ScrollAnimationHome directionXY={'X'} startOffsetPoint={1600} notAnimated={false} customStyle={{  boxSizing: 'border-box',display: 'flex', justifyContent: 'space-between',flexDirection: 'column'}}>
+              <Text customCss={headerTextStyle} style={{width: '100%', zIndex: 3, marginLeft: 32, marginTop: 40}}>Experience it for yourself.</Text>
+            </ScrollAnimationHome>
           </Box>
           <img src={fire} style={{height: 520, objectFit: 'cover', position: 'absolute', zIndex: 1, width: '100%'}}></img>
           <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 2, opacity: 0.3, width: '100%', height: 520, alignItems: 'center'}}></Box>
           <Box style={{display: 'flex', zIndex: 4,marginRight: 32, flexDirection: 'column',}}>
-            <Button customCss={css`margin-bottom: 4vh;`} onClick={() => navigate('/sauna')} text={'Book a sauna'} />
+            <ScrollAnimationHome directionXY={'Y'} startOffsetPoint={1600} delay={300} animationDistance={30} notAnimated={false} customStyle={{  boxSizing: 'border-box',display: 'flex', justifyContent: 'space-between',flexDirection: 'column'}}>
+              <Button customCss={css`margin-bottom: 4vh;`} onClick={() => navigate('/sauna')} text={'Book a sauna'} />
+            </ScrollAnimationHome>
           </Box>
           <TopGradientBox customStyle={{top: undefined, bottom: 0, height: 26, width: '100%'}} />
         </Box>
