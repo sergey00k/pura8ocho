@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 
 ////////// icons /////////////////
 import { IonIcon } from '@ionic/react';
-import { logoWhatsapp, mailOutline, logoFacebook, logoInstagram } from 'ionicons/icons';
+import { logoWhatsapp, mailOutline, paperPlaneOutline, logoInstagram } from 'ionicons/icons';
 import facebook from '../assets/images/socialLogos/facebook.png'
 import whatsapp from '../assets/images/socialLogos/whatsapp.png'
 import instagram from '../assets/images/socialLogos/instagram.png'
@@ -24,6 +24,7 @@ import { doc, setDoc, updateDoc, query, collection, getDocs, where } from "fireb
 import { Modal, Box, Slide } from '@mui/material';
 
 const Footer: React.FC = () => {
+    const userLanguage = navigator.language;
     const [email, setEmail] = useState('')
     const [emailExistsError, setEmailExistsError] = useState(false);
     const [emailConfirmed, setEmailConfirmed] = useState(false)
@@ -97,29 +98,29 @@ const Footer: React.FC = () => {
         <Box style={{backgroundColor: 'transparent', width: '100%', alignItems: 'center'}}>
         <Box sx={{ display: 'flex', flexDirection: 'row', marginLeft: '2vw', justifyContent: 'space-between' }}>
           <Box sx={{ justifyContent: 'space-between', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', backgroundColor: 'transparent', width: '80%' }} >
-            <Text customCss={headerTextStyle}>Socials</Text>
+            <Text customCss={headerTextStyle}>{userLanguage.slice(0,2) === 'en' ? 'Socials' : 'Соцсети'}</Text>
             <button onClick={() => externalUrlRedirection('https://wa.me/6287885191204')} style={{ height: 40,paddingLeft: 0, border: 'none', background: 'none', alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
               <IonIcon icon={logoWhatsapp} style={{color: 'white', height: 18, width: 18, marginRight: 10}} />
-              <Text customCss={bodyTextStyle} >WhatsApp</Text>
+              <Text customCss={bodyTextStyle} >{userLanguage.slice(0,2) === 'en' ? 'WhatsApp' : 'WhatsApp'}</Text>
             </button>
             <button onClick={() => externalUrlRedirection('https://www.instagram.com/pura8ocho/')} style={{ height: 40,paddingLeft: 0, border: 'none', background: 'none', alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
               <IonIcon icon={logoInstagram} style={{color: 'white', height: 18, width: 18, marginRight: 10}} />
-              <Text customCss={bodyTextStyle}>Instagram</Text>
+              <Text customCss={bodyTextStyle}>{userLanguage.slice(0,2) === 'en' ? 'Instagram' : 'Instagram'}</Text>
             </button>
-            <button onClick={() => externalUrlRedirection('url')} style={{ height: 40,paddingLeft: 0, border: 'none', background: 'none', alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
-              <IonIcon icon={logoFacebook} style={{color: 'white', height: 18, width: 18, marginRight: 10}} />
-              <Text customCss={bodyTextStyle}>Facebook</Text>
+            <button onClick={() => externalUrlRedirection('https://t.me/puraocho')} style={{ height: 40,paddingLeft: 0, border: 'none', background: 'none', alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
+              <IonIcon icon={paperPlaneOutline} style={{color: 'white', height: 18, width: 18, marginRight: 10}} />
+              <Text customCss={bodyTextStyle}>{userLanguage.slice(0,2) === 'en' ? 'Telegram' : 'Telegram'}</Text>
             </button>
-            <button onClick={() => externalUrlRedirection('url')} style={{ height: 40, paddingLeft: 0, border: 'none', background: 'none', alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
+            <button onClick={() => externalUrlRedirection('mailto:pura8ocho@gmail.com')} style={{ height: 40, paddingLeft: 0, border: 'none', background: 'none', alignItems: 'center', display: 'flex', flexDirection: 'row' }}>
               <IonIcon icon={mailOutline} style={{color: 'white', height: 18, width: 18, marginRight: 10}} />
-              <Text customCss={bodyTextStyle}>Email</Text>
+              <Text customCss={bodyTextStyle}>{userLanguage.slice(0,2) === 'en' ? 'Email' : 'почта'}</Text>
             </button>
           </Box>
           <Box sx={{  display: 'flex', flexDirection: 'column', alignItems: 'center',marginRight: '2vw', width: '80%'}}>
-            <Text customCss={headerTextStyle} style={{ marginBottom: '4.2vh', width: 200, textAlign: 'left'}}>Enjoy 10% off your next visit</Text>
+            <Text customCss={headerTextStyle} style={{ marginBottom: '4.2vh', width: 200, textAlign: 'left'}}>{userLanguage.slice(0,2) === 'en' ? 'Enjoy 10% off your next visit' : 'Получите скидку 10% на следующий визит'}</Text>
             {!emailConfirmed ? (
               <div style={{display: 'flex', flexDirection: 'column', width: 200, alignItems: 'flex-start',}}>
-                {emailExistsError && (<Text customCss={extraSmallTextStyle} style={{color: 'red', textAlign: 'center', marginBottom: 8, marginTop: 8}}>Entered email is not valid.</Text>)}
+                {emailExistsError && (<Text customCss={extraSmallTextStyle} style={{color: 'red', textAlign: 'center', marginBottom: 8, marginTop: 8}}>{userLanguage.slice(0,2) === 'en' ? 'Entered email is not valid.' : ''}</Text>)}
                 <Box style={{
         background: 'linear-gradient(to right, #5A0C9D, #9F2D99)',
         padding: '1%',
@@ -127,9 +128,9 @@ const Footer: React.FC = () => {
         marginTop: 6,
         marginBottom: '4.2vh'
     }}>
-                <input placeholder={'Enter your email...'} onChange={e => setEmail(e.target.value)} style={{ color: 'white', backgroundColor: 'black', borderColor: 'transparent', borderRadius: 20, height: 24, width: 160, }}></input>
+                <input placeholder={userLanguage.slice(0,2) === 'en' ? 'Enter your email...' : 'Введите свой email...'} onChange={e => setEmail(e.target.value)} style={{ color: 'white', backgroundColor: 'black', borderColor: 'transparent', borderRadius: 20, height: 24, width: 160, }}></input>
                 </Box>
-                <Button onClick={() => sendEmail(email)} text={'Get 10% Off'} customCss={css`width: 126px; font-size: 14px; margin-top: 6px; margin-bottom: 0px; height: 36px`} />
+                <Button onClick={() => sendEmail(email)} text={userLanguage.slice(0,2) === 'en' ? 'Get 10% Off' : 'Скидка 10%'} customCss={css`width: 126px; font-size: 14px; margin-top: 6px; margin-bottom: 0px; height: 36px`} />
               </div>
             ) : (
               <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center',}}>

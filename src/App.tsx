@@ -15,8 +15,6 @@ import { useNavigate, useLocation, } from 'react-router-dom';
 
 ////////// page imports ///////////////
 import Home from './pages/Home';
-import Booking from './pages/Booking';
-import BookingPrivate from './pages/BookingPrivate';
 import AllBookings from './pages/AllBookings';
 import Services from './pages/Services';
 import Sauna from './pages/Sauna';
@@ -119,6 +117,8 @@ const headerTextStyle = css`
 
 const HeaderMenu: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const userLanguage = navigator.language;
+
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
@@ -183,16 +183,16 @@ const HeaderMenu: React.FC = () => {
         >
           <Box style={{ display: 'flex', flexDirection: 'column'}}>
             <Button onClick={() => {navigate('/'); document.body.style.overflow = 'auto'; setTimeout(() => closeModal(), 100);}}>
-              <Text customCss={headerTextStyle} style={{ margin: 0}}>Home</Text>
+              <Text customCss={headerTextStyle} style={{ margin: 0}}>{userLanguage.slice(0,2) === 'en' ? "Home" : "Главная"}</Text>
             </Button>
             <Button onClick={() => {navigate('/allBookings');  setTimeout(() => closeModal(), 100);}}>
-              <Text customCss={headerTextStyle} style={{ margin: 0}}>Bookings</Text>
+              <Text customCss={headerTextStyle} style={{ margin: 0}}>{userLanguage.slice(0,2) === 'en' ? "Bookings" : "Бронир"}</Text>
             </Button>
             <Button onClick={() => {navigate('/services');  setTimeout(() => closeModal(), 100);}}>
-              <Text customCss={headerTextStyle} style={{ margin: 0}}>Services</Text>
+              <Text customCss={headerTextStyle} style={{ margin: 0}}>{userLanguage.slice(0,2) === 'en' ? "Services" : "Услуги"}</Text>
             </Button>
             <Button onClick={() => {navigate('/info');  setTimeout(() => closeModal(), 100);}}>
-              <Text customCss={headerTextStyle} style={{ margin: 0}}>Info</Text>
+              <Text customCss={headerTextStyle} style={{ margin: 0}}>{userLanguage.slice(0,2) === 'en' ? "Info" : "Инфо"}</Text>
             </Button>
           </Box>
             <CSSMistAnimation />
@@ -229,8 +229,6 @@ const App: React.FC = () => {
       <HeaderMenu />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/booking" element={<Booking />} />
-        <Route path="/bookingPrivate" element={<BookingPrivate />} />
         <Route path="/allBookings" element={<AllBookings />} />
         <Route path="/services" element={<Services />} />
         <Route path="/sauna" element={<Sauna />} />

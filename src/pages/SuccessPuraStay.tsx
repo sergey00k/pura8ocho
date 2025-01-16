@@ -61,6 +61,8 @@ const extraSmallTextStyle = css`
 
 const SuccessPuraStay: React.FC = () => {
     const navigate = useNavigate(); 
+    const userLanguage = navigator.language;
+
 
 
     return (

@@ -22,7 +22,7 @@ const Button: React.FC<ButtonProps> = ({ text, onClick, customCss }) => {
       margin-bottom: 24px;
       background: linear-gradient(to right, #5A0C9D, #9F2D99);
       border-radius: 30px;
-      padding: 10px 20px;
+      padding: 10px 4px;
       height: 40px;
       width: 200px;
       border: none;

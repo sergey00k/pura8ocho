@@ -63,6 +63,8 @@ const extraSmallTextStyle = css`
 
 const Info: React.FC = () => {
     const navigate = useNavigate(); 
+    const userLanguage = navigator.language;
+
 
 
     return (
@@ -85,17 +87,17 @@ const Info: React.FC = () => {
                 <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 2, opacity: 0.54, width: '100%', height: '72vh', alignItems: 'center'}}></Box>
                 <img src={wood} style={{height: '72vh', position: 'absolute', zIndex: 1, width: '100%'}}></img>
                 <Box style={{marginLeft: '7vw', marginTop: '1vh', paddingBottom: '2vh', marginBottom: '3vh', borderColor: 'white', borderBottomStyle: 'solid',borderBottomWidth: '0.5px', position: 'relative', zIndex: 3, width: '86vw'}}>
-                    <Text customCss={headerTextStyle} style={{position: 'relative', marginBottom: 0}}>Where is Pura8ocho?</Text>
-                    <Text customCss={bodyTextStyle} style={{position: 'relative', marginBottom: '2vh'}}>Pura8ocho is located in Bali, Pererenan. Follow the following link to get the exact google map location.</Text>
-                    <a href={'https://maps.app.goo.gl/q8PoxguY73eZQuoz6'} >Press here.</a>
+                    <Text customCss={headerTextStyle} style={{position: 'relative', marginBottom: 0}}>{userLanguage.slice(0,2) === 'en' ? "Where is Pura8ocho?" : "Где находится Pura8ocho?"}</Text>
+                    <Text customCss={bodyTextStyle} style={{position: 'relative', marginBottom: '2vh'}}>{userLanguage.slice(0,2) === 'en' ? "Pura8ocho is located in Bali, Pererenan. Follow the following link to get the exact google map location." : "Pura8ocho находится на Бали, в Переренане. Перейдите по следующей ссылке, чтобы получить точное местоположение на Google Maps."}</Text>
+                    <a href={'https://maps.app.goo.gl/q8PoxguY73eZQuoz6'} >{userLanguage.slice(0,2) === 'en' ? "Press here." : "Нажмите здесь."}</a>
                 </Box>
                 <Box style={{marginLeft: '7vw', marginBottom: '3vh', borderColor: 'white', borderBottomStyle: 'solid',borderBottomWidth: '0.5px', position: 'relative', alignItems: 'flex-start', display: 'flex', flexDirection: 'column', zIndex: 3, width: '86vw'}}>
-                    <Text customCss={headerTextStyle} style={{position: 'relative', marginBottom: 0,}}>Can I buy my ticket upon arrival?</Text>
-                    <Text customCss={bodyTextStyle} style={{position: 'relative',}}>Yes, however we have limited spots available so there is a possibility of getting denied entry, so a booking in advance is preferred.</Text>
+                    <Text customCss={headerTextStyle} style={{position: 'relative', marginBottom: 0,}}>{userLanguage.slice(0,2) === 'en' ? "Can I buy my ticket upon arrival?" : "Могу ли я купить билет при регистрации?"}</Text>
+                    <Text customCss={bodyTextStyle} style={{position: 'relative',}}>{userLanguage.slice(0,2) === 'en' ? "Yes, however we have limited spots available so there is a possibility of getting denied entry, so a booking in advance is preferred." : "Да, однако у нас ограниченное количество мест, поэтому существует вероятность отказа в входе, поэтому бронирование заранее предпочтительнее."}</Text>
                 </Box>
                 <Box style={{marginLeft: '7vw', marginBottom: '3vh', borderColor: 'white', borderBottomStyle: 'solid',borderBottomWidth: '0.5px', position: 'relative', zIndex: 3, width: '86vw'}}>
-                    <Text customCss={headerTextStyle} style={{position: 'relative', marginBottom: 0}}>I booked online and did not receive a ticket in my email inbox.</Text>
-                    <Text customCss={bodyTextStyle} style={{position: 'relative',}}>Don't worry! We saved your email address when you made the booking so just tell us your email upon arrival.</Text>
+                    <Text customCss={headerTextStyle} style={{position: 'relative', marginBottom: 0}}>{userLanguage.slice(0,2) === 'en' ? "I booked online and did not receive a ticket in my email inbox." : "Я забронировал онлайн, но не получил билет в мой почтовый ящик."}</Text>
+                    <Text customCss={bodyTextStyle} style={{position: 'relative',}}>{userLanguage.slice(0,2) === 'en' ? "Don't worry! We saved your email address when you made the booking so just tell us your email upon arrival." : "Не переживайте! Мы сохранили ваш адрес электронной почты, когда вы сделали бронирование, просто скажите нам свой email при регистрации."}</Text>
                 </Box>
                 <TopGradientBox customStyle={{height: '6vh', top: undefined, bottom: 0, background: 'linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0))'}}/>
 

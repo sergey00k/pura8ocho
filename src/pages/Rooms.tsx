@@ -108,6 +108,8 @@ const extraSmallTextStyle = css`
 
 const Rooms: React.FC = () => {
   const navigate = useNavigate(); 
+  const userLanguage = navigator.language;
+
 
   const [sectionVisible, setSectionVisible] = useState(room)
 
@@ -215,7 +217,7 @@ const Rooms: React.FC = () => {
         >
             <img src={require(`../assets/images/irlImages/${sectionVisible}`)} style={{height: '80vh', position: 'absolute', zIndex: 1, width: '100%'}}></img>
             <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 2, opacity: bookNow ? 0.5 : 0.3, width: '100%', height: '80vh', alignItems: 'center'}}></Box>
-            {!bookNow && <Button text={'Book now'} onClick={() => { setBookNow(true); toggleSectionVisibility(room); }} customCss={css`width: 52vw; height: 5vh; position: absolute; z-index: 4; bottom: 0vh; margin: 0; right: -6vw`}></Button>}
+            {!bookNow && <Button text={userLanguage.slice(0,2) === 'en' ? 'Book now' : 'Забронировать'} onClick={() => { setBookNow(true); toggleSectionVisibility(room); }} customCss={css`width: 52vw; height: 5vh; position: absolute; z-index: 4; bottom: 0vh; margin: 0; right: -6vw`}></Button>}
 
             <Modal open={((sectionVisible === room) && (!bookNow))} slotProps={{ backdrop: { style: { backgroundColor: 'transparent' } }}} style={{ outline: 'none', position: 'absolute',zIndex: 3, backgroundColor: 'transparent', flex: 1 }}>
               <Box style={{ outline: 'none', position: 'absolute', backgroundColor: 'transparent', height: '100vh', width: '100vw', flex: 1 }}>
@@ -239,7 +241,7 @@ const Rooms: React.FC = () => {
                   </button>
                   <Box>
                     <Box style={{display: 'flex', marginBottom: '3vh', flexDirection: 'row', alignItems: 'center'}}>
-                        <Text customCss={bodyTextStyle}>Rooms: </Text>
+                        <Text customCss={bodyTextStyle}>{userLanguage.slice(0,2) === 'en' ? 'Rooms:' : 'Номера:'}</Text>
                         <select
                             value={rooms}
                             onChange={handleRoomsChange}
@@ -251,21 +253,21 @@ const Rooms: React.FC = () => {
                         </select>
                     </Box>
                     <Box style={{display: 'flex', marginBottom: '3vh', flexDirection: 'row', alignItems: 'center'}}>
-                        <Text customCss={bodyTextStyle}>Add ons: </Text>
+                        <Text customCss={bodyTextStyle}>{userLanguage.slice(0,2) === 'en' ? 'Add ons: ' : 'Доп услуги:'}</Text>
                         <select
                             multiple
                             value={addOns}
                             onChange={handleAddOnsChange}
                             style={selectStyle}
                             >
-                            <option value="Weekly Massage">Weekly Massage (120k per week)</option>
-                            <option value="Daily Room Cleaning">Daily Room Cleaning (50k per day)</option>
-                            <option value="Breakfast">Breakfast (100k per day)</option>
-                            <option value="Motorbike Rental">Motorbike Rental (100k per day)</option>
+                            <option value="Weekly Massage">{userLanguage.slice(0,2) === 'en' ? 'Weekly Massage (120k per week)' : "Еж. массаж (120k в неделю)"}</option>
+                            <option value="Daily Room Cleaning">{userLanguage.slice(0,2) === 'en' ? 'Daily Room Cleaning (50k per day)' : 'Ежд. уборка (50k в день)'}</option>
+                            <option value="Breakfast">{userLanguage.slice(0,2) === 'en' ? 'Breakfast (100k per day)' : 'Завтрак (100k в день)'}</option>
+                            <option value="Motorbike Rental">{userLanguage.slice(0,2) === 'en' ? 'Motorbike Rental (100k per day)' : 'Аренда мотоцикла (100k в день)'}</option>
                         </select>
                     </Box>   
                     <Box style={{display: 'flex', marginBottom: '3vh',position: 'relative', zIndex: 6, flexDirection: 'row', alignItems: 'center'}}>
-                        <Text customCss={bodyTextStyle}>Check in: </Text>
+                        <Text customCss={bodyTextStyle}>{userLanguage.slice(0,2) === 'en' ? 'Check in: ' : 'Регистрация:'}</Text>
                         <DatePicker
                           minDate={new Date()}
                           maxDate={checkOutDate}
@@ -279,7 +281,7 @@ const Rooms: React.FC = () => {
                     </Box>  
       
                     <Box style={{display: 'flex', position: 'relative', zIndex: 5, marginBottom: '3vh', flexDirection: 'row', alignItems: 'center'}}>
-                        <Text customCss={bodyTextStyle}>Check out: </Text>
+                        <Text customCss={bodyTextStyle}>{userLanguage.slice(0,2) === 'en' ? 'Check out:' : 'Оформить заказ:'}</Text>
                         <DatePicker
                           minDate={checkInDate || new Date()}
                           customInput={<input inputMode='none' />}
@@ -292,9 +294,9 @@ const Rooms: React.FC = () => {
                     </Box>
                   </Box>
                   <Box style={{ width: '100%', display: 'flex', position: 'relative', zIndex: 4, flexDirection: 'column', marginTop: isLargeScreen ? '22vh' : '18vh', justifyContent: 'center', alignItems: 'center'}}>
-                    <Text customCss={headerTextStyle} style={{marginBottom: '1vh'}}>{`Total: ${price}k IDR`}</Text>
-                    <Button text={'Pay now'} customCss={css` height: 6.4vh; margin-top: 0px;`} onClick={() => setPaymentModal(true)} />
-                  </Box>          
+                    <Text customCss={headerTextStyle} style={{marginBottom: '1vh'}}>{userLanguage.slice(0,2) === 'en' ? `Total: ${price}k IDR` : `Итого: ${price}k IDR`}</Text>
+                    <Button text={userLanguage.slice(0,2) === 'en' ? 'Proceed' : 'Продолжить'} customCss={css` height: 6.4vh; margin-top: 0px;`} onClick={() => setPaymentModal(true)} />
+                  </Box>
               </Box>
             </Modal>
 

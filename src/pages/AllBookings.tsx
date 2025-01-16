@@ -48,6 +48,8 @@ const extraSmallTextStyle = css`
 
 const AllBookings: React.FC = () => {
     const navigate = useNavigate(); 
+    const userLanguage = navigator.language;
+
 
 
     return (
@@ -68,7 +70,7 @@ const AllBookings: React.FC = () => {
             <BottomGradientBox />
             <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 2, opacity: 0.3, width: '100%', height: '100%', alignItems: 'center'}}></Box>
             <img src={thePath} style={{height: '100%', position: 'absolute', zIndex: 1, width: '100%'}}></img>
-            <Text customCss={headerTextStyle} style={{position: 'relative', zIndex: 5,}}>Choose your path</Text>
+            <Text customCss={headerTextStyle} style={{position: 'relative', zIndex: 5,}}>{userLanguage.slice(0,2) === 'en' ? 'Choose your path' : 'Выберите свой путь'}</Text>
             <Box style={{display: 'flex', alignItems: 'center', flexDirection: 'row', position: 'relative', zIndex: 2, justifyContent: 'space-between', width: '110%'}}>
                 <Button text={'PuraSauna'} onClick={() => { navigate('/sauna'); document.body.style.overflow = 'auto';}} customCss={css`width: 52vw; height: 7vh`}></Button>
                 <Button text={'PuraStay'} onClick={() => { navigate('/rooms'); document.body.style.overflow = 'auto'; }} customCss={css`width: 52vw; height: 7vh`}></Button>

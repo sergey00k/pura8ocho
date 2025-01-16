@@ -186,6 +186,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isVisible, onClose, whatsAp
     }
   }
 
+  const userLanguage = navigator.language;
 
 
   
@@ -199,16 +200,16 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isVisible, onClose, whatsAp
       <Box style={{...styles.modalContent, height: !emailConfirmed ? '30vh' : '40vh'}}>
         {(!emailConfirmed || (!email.includes('@'))) ? ( 
           <Box style={{width: '70%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
-            <Text customCss={headerTextStyle} style={{...styles.modalTitle, marginBottom: emailExistsError ? 6 : undefined}}>Enter your email</Text>
-            {emailNotValid && (<Text style={{color: 'red', textAlign: 'center', fontSize: 12, marginBottom: 4}}>Please enter a valid email.</Text>)}
+            <Text customCss={headerTextStyle} style={{...styles.modalTitle, marginBottom: emailExistsError ? 6 : undefined}}>{userLanguage.slice(0,2) === 'en' ? "Enter your email" : "Введите ваш адрес электронной почты"}</Text>
+            {emailNotValid && (<Text style={{color: 'red', textAlign: 'center', fontSize: 12, marginBottom: 4}}>{userLanguage.slice(0,2) === 'en' ? "Please enter a valid email." : "Пожалуйста, введите действительный адрес электронной почты."}</Text>)}
             <Box style={{...styles.inputGradient, marginTop: 12}}>
-                <input style={{...styles.input, fontSize: 16, paddingTop: 6, paddingBottom: 6}} placeholder="Email" value={email} onChange={(event) => { setEmail(event.target.value) } } />
+                <input style={{...styles.input, fontSize: 16, paddingTop: 6, paddingBottom: 6}} placeholder={userLanguage.slice(0,2) === 'en' ? "Email" : "Электронная почта"} value={email} onChange={(event) => { setEmail(event.target.value) } } />
             </Box>
-            {showSpinner ? <CircularProgress /> : <Button text={'CONFIRM'} customCss={{ height: 40, width: '64%', marginTop: 15}} onClick={() => userEnteredEmail(email, password)} />}
+            {showSpinner ? <CircularProgress /> : <Button text={userLanguage.slice(0,2) === 'en' ? 'CONFIRM' : "ПОДТВЕРДИТЬ"} customCss={{ height: 40, width: '64%', marginTop: 15}} onClick={() => userEnteredEmail(email, password)} />}
 
         </Box>) : (
         <>
-          {true ? (
+          {false ? (
             <>
             <Text customCss={headerTextStyle} style={styles.modalTitle}>Enter your card details</Text>
             {paymentError && (<Text style={{color: 'red', fontFamily: 'Montserrat-Regular', fontSize: 12, marginBottom: 12}}>There was an error with the payment</Text>)}

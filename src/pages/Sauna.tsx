@@ -67,6 +67,8 @@ const extraSmallTextStyle = css`
 
 const Sauna: React.FC = () => {
     const navigate = useNavigate(); 
+    const userLanguage = navigator.language;
+
 
     const [saunaType, setSaunaType] = useState('Public')
 
@@ -103,8 +105,16 @@ const Sauna: React.FC = () => {
     const [steamMasterPrice, setSteamMasterPrice] = useState('2500')
     const [availableDuration, setAvailableDuration] = useState(['2', '3', '4', '5', '6', '7', '8', '9'])
 
+    // translations 
+    const [saunaTypeTranslation, setSaunaTypeTranslation] = useState(saunaType)
+    const [addOnTranslation, setAddOnTranslation] = useState(addOn)
+
     const phoneNumber = '6287885191204';  // The phone number in international format (no plus sign)
-    const message = `Hello,\n I would like to book a ${saunaType} sauna at ${saunaSelectedTime} ${saunaType === 'Private' ? `for ${privateSelectedDuration} hours` : ''} on ${dateSelected && dateSelected.toLocaleDateString('en-CA')} for ${tickets} guests with the following add ons :\n\n ${addOn.map((item) => { if (item === 'massage') { return `${item} at ${massageSelectedTime}\n` } else { return `${item}\n` } }).join('')}\n Total price: ${price}k`;  // The pre-filled message
+    const message = userLanguage.slice(0,2) === 'en' ? 
+        `Hello,\n I would like to book a ${saunaTypeTranslation} sauna at ${saunaSelectedTime} ${saunaType === 'Private' ? `for ${privateSelectedDuration} hours` : ''} on ${dateSelected && dateSelected.toLocaleDateString('en-CA')} for ${tickets} guests with the following add ons :\n\n ${addOnTranslation.map((item) => { if (item === 'Massage (250k)') { return `${item} at ${massageSelectedTime}\n` } else { return `${item}\n` } }).join('')}\n Total price: ${price}k` 
+    :
+        `Здравствуйте,\n Я хотел бы забронировать сауну ${saunaTypeTranslation} на ${saunaSelectedTime} ${saunaType === 'Private' ? `на ${privateSelectedDuration} часов` : ''} на ${dateSelected && dateSelected.toLocaleDateString('en-CA')} для ${tickets} гостей с дополнительными опциями:\n\n ${addOnTranslation.map((item) => { if (item === 'Массаж (250k)') { return `${item} на ${massageSelectedTime}\n` } else { return `${item}\n` } }).join('')}\n Общая цена: ${price}k`
+
 
     // URL encode the message to ensure it works in the query string
     const encodedMessage = encodeURIComponent(message);
@@ -112,6 +122,84 @@ const Sauna: React.FC = () => {
     const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
 
+
+
+    useEffect(() => {
+        let localAddOnArray = []
+
+        if (userLanguage.slice(0,2) !== 'en') {
+            if (saunaType === 'Public') {
+                setSaunaTypeTranslation('Общественная')
+            } else if (saunaType === 'Private') {
+                setSaunaTypeTranslation('Частный')
+            } else {
+                setSaunaTypeTranslation('женщин')
+            }
+
+
+            if (addOn.includes('towel')) {
+                localAddOnArray.push('Полотенце (20k)')
+            }
+            if (addOn.includes('massage')) {
+                localAddOnArray.push('Массаж (250k)')
+            }
+            if (addOn.includes('1NightStay')) {
+                localAddOnArray.push('Проживание на 1 ночь (500k)')
+            }
+            if (addOn.includes('bonfire')) {
+                localAddOnArray.push('Костер (100k)')
+            }
+            if (addOn.includes('eucalyptus')) {
+                localAddOnArray.push('Эвкалиптовые метлы (200k)')
+            }
+            if (addOn.includes('ice')) {
+                localAddOnArray.push('Лед для бани (400k)')
+            }
+            if (addOn.includes('flowers')) {
+                localAddOnArray.push('Цветы для бани (200k)')
+            }
+            if (addOn.includes('teaCeremony')) {
+                localAddOnArray.push('Чайная церемония (1500k)')
+            }
+            if (addOn.includes('steamMaster')) {
+                localAddOnArray.push(`Мастер пара (${steamMasterPrice}k)`)
+            }
+        } else {
+            setSaunaTypeTranslation(saunaType)
+
+
+            if (addOn.includes('towel')) {
+                localAddOnArray.push('Towel (20k)')
+            }
+            if (addOn.includes('massage')) {
+                localAddOnArray.push('Massage (250k)')
+            }
+            if (addOn.includes('1NightStay')) {
+                localAddOnArray.push('1 Night Stay (500k)')
+            }
+            if (addOn.includes('bonfire')) {
+                localAddOnArray.push('Bonfire (100k)')
+            }
+            if (addOn.includes('eucalyptus')) {
+                localAddOnArray.push('Eucalyptus Brooms (200k)')
+            }
+            if (addOn.includes('ice')) {
+                localAddOnArray.push('Ice for bath (400k)')
+            }
+            if (addOn.includes('flowers')) {
+                localAddOnArray.push('Flowers for bath (200k)')
+            }
+            if (addOn.includes('teaCeremony')) {
+                localAddOnArray.push('Tea Ceremony (1500k)')
+            }
+            if (addOn.includes('steamMaster')) {
+                localAddOnArray.push(`Steam Master (${steamMasterPrice}k)`)
+            }
+        }
+
+        setAddOnTranslation(localAddOnArray)
+
+    },[saunaType, addOn, steamMasterPrice])
     
 
     useEffect(() => {
@@ -272,19 +360,19 @@ const Sauna: React.FC = () => {
             <Box style={{width: '90%', position: 'relative', marginTop: '4vh', zIndex: 4,}}>
                 <Box style={{display: 'flex', width: '100%', marginBottom: '4vh', justifyContent: 'space-between'}}>
                     <Box>
-                        <Text customCss={bodyTextStyle}>Sauna Type: </Text>
+                        <Text customCss={bodyTextStyle}>{userLanguage.slice(0,2) === 'en' ? 'Sauna Type:' : 'Тип сауны:'}</Text>
                         <select
                             value={saunaType}
                             onChange={handleTypeChange}
                             style={{...selectStyle, width: '56.5vw' }}
                             >
-                            <option value="Public">Public (18:00 - 22:00)</option>
-                            <option value="Women-Only">Women-Only (17:00 - 21:00)</option>
-                            <option value="Private">Private</option>
+                            <option value="Public">{userLanguage.slice(0,2) === 'en' ? 'Public (18:00 - 22:00)' : 'Общественная (18:00 - 22:00)'}</option>
+                            <option value="Women-Only">{userLanguage.slice(0,2) === 'en' ? 'Women-Only (17:00 - 21:00)' : 'женщин (17:00 - 21:00)'}</option>
+                            <option value="Private">{userLanguage.slice(0,2) === 'en' ? 'Private' : 'Частный'}</option>
                         </select>
                     </Box>
                     <Box>
-                        <Text customCss={bodyTextStyle}>Guests: </Text>
+                        <Text customCss={bodyTextStyle}>{userLanguage.slice(0,2) === 'en' ? 'Guests:' : 'Гости:'}</Text>
                         {saunaType === 'Private' 
                         ? 
                             <select
@@ -315,7 +403,7 @@ const Sauna: React.FC = () => {
                 </Box>
                 <Box style={{display: 'flex', width: '100%',  justifyContent: 'space-between'}}>
                     <Box>
-                        <Text customCss={bodyTextStyle}>Add on: </Text>
+                        <Text customCss={bodyTextStyle}>{userLanguage.slice(0,2) === 'en' ? 'Add on: ' : 'Добавить: '}</Text>
                         {saunaType === 'Private' 
                         ? 
                             (<select
@@ -324,12 +412,12 @@ const Sauna: React.FC = () => {
                                 onChange={handleAddOnChange}
                                 style={{...selectStyle, width: '56.5vw'}}
                                 >
-                                <option value="bonfire">Bonfire (100k)</option>
-                                <option value="eucalyptus">Eucalyptus Brooms (200k)</option>
-                                <option value="ice">Ice for bath (400k)</option>
-                                <option value="flowers">Flowers for bath (200k)</option>
-                                <option value="teaCeremony">Tea Ceremony (1500k)</option>
-                                <option value="steamMaster">{`Steam Master (${steamMasterPrice}k)`}</option>
+                                <option value="bonfire">{userLanguage.slice(0, 2) === 'en' ? 'Bonfire (100k)' : 'Костер (100k)'}</option>
+                                <option value="eucalyptus">{userLanguage.slice(0, 2) === 'en' ? 'Eucalyptus Brooms (200k)' : 'Эвкалиптовые метлы (200k)'}</option>
+                                <option value="ice">{userLanguage.slice(0, 2) === 'en' ? 'Ice for bath (400k)' : 'Лед для бани (400k)'}</option>
+                                <option value="flowers">{userLanguage.slice(0, 2) === 'en' ? 'Flowers for bath (200k)' : 'Цветы для бани (200k)'}</option>
+                                <option value="teaCeremony">{userLanguage.slice(0, 2) === 'en' ? 'Tea Ceremony (1500k)' : 'Чайная церемония (1500k)'}</option>
+                                <option value="steamMaster">{userLanguage.slice(0,2) === 'en' ? `Steam Master (${steamMasterPrice}k)` : `Мастер пара (${steamMasterPrice}k)`}</option>
 
                             </select>)
                         : 
@@ -339,14 +427,14 @@ const Sauna: React.FC = () => {
                                 onChange={handleAddOnChange}
                                 style={{...selectStyle, width: '56.5vw'}}
                                 >
-                                <option value="towel">Towel (20k)</option>
-                                <option value="massage">Massage (250k)</option>
-                                <option value="1NightStay">1 Night Stay (500k)</option>
+                                <option value="towel">{userLanguage.slice(0,2) === 'en' ? 'Towel (20k)' : 'Полотенце (20k)'}</option>
+                                <option value="massage">{userLanguage.slice(0,2) === 'en' ? 'Massage (250k)' : 'Массаж (250k)'}</option>
+                                <option value="1NightStay">{userLanguage.slice(0,2) === 'en' ? '1 Night Stay (500k)' : 'Проживание на 1 ночь (500k)'}</option>
                             </select>)
                         }
                     </Box>
                     <Box>
-                        <Text customCss={bodyTextStyle}>Date: </Text>
+                        <Text customCss={bodyTextStyle}>{userLanguage.slice(0,2) === 'en' ? 'Date:' : 'Дата:'}</Text>
                         <DatePicker
                           minDate={new Date()}
                           customInput={<input inputMode='none' />}
@@ -363,7 +451,7 @@ const Sauna: React.FC = () => {
                     <Box style={{display: 'flex', width: '100%',  justifyContent: 'space-between'}}>
 
                     <Box style={{width: '56.5vw'}}>
-                        <Text customCss={bodyTextStyle}>Massage Time: </Text>
+                        <Text customCss={bodyTextStyle}>{userLanguage.slice(0,2) === 'en' ? 'Massage Time:' : 'Время массажа:'}</Text>
                         <select
                             value={massageSelectedTime}
                             onChange={handleMassageTimeChange}
@@ -385,7 +473,7 @@ const Sauna: React.FC = () => {
                 <Box style={{display: 'flex', width: '100%',  justifyContent: 'space-between'}}>
 
                     <Box style={{width: '40%'}}>
-                        <Text customCss={bodyTextStyle}>{saunaType === 'Private' ? 'Start Time: ' : 'Time: '}</Text>
+                        <Text customCss={bodyTextStyle}>{saunaType === 'Private' ? (userLanguage.slice(0,2) === 'en' ? 'Start Time: ' : 'Время начала:') : (userLanguage.slice(0,2) === 'en' ? 'Time: ' : 'Время:')}</Text>
                         <select
                             value={saunaSelectedTime}
                             onChange={handleTimeChange}
@@ -401,14 +489,14 @@ const Sauna: React.FC = () => {
                     </Box>
                     
                         <Box style={{width: '57%'}}>
-                            <Text customCss={bodyTextStyle}>Duration: </Text>
+                            <Text customCss={bodyTextStyle}>{userLanguage.slice(0,2) === 'en' ? 'Duration:' : 'Продолжительность: '}</Text>
                             <select
                                 value={privateSelectedDuration}
                                 onChange={handlePrivateDurationChange}
                                 style={{ ...selectStyle, width: '100%' }}
                                 >
                                     {availableDuration.map((item) => 
-                                        <option value={item}>{item + ' hours'}</option>
+                                        <option value={item}>{item + (userLanguage.slice(0,2) === 'en' ? ' hours' : ' Часы')}</option>
                                     )}
   
                             </select>
@@ -418,8 +506,8 @@ const Sauna: React.FC = () => {
                 )}
             </Box>
             <Box style={{ width: '100%', display: 'flex', position: 'relative', zIndex: 3, flexDirection: 'column', marginBottom: '2vh', justifyContent: 'center', alignItems: 'center'}}>
-                <Text customCss={headerTextStyle}>{`Total: ${price}k IDR`}</Text>
-                <Button text={'Proceed'} customCss={css` height: 6.4vh; margin-top: 0px;`} onClick={() => { if (dateSelected) { setPaymentModal(true) } } } />
+                <Text customCss={headerTextStyle}>{userLanguage.slice(0,2) === 'en' ? `Total: ${price}k IDR` : `Итого: ${price}k IDR`}</Text>
+                <Button text={userLanguage.slice(0,2) === 'en' ? 'Proceed' : 'Продолжить'} customCss={css` height: 6.4vh; margin-top: 0px;`} onClick={() => { if (dateSelected) { setPaymentModal(true) } } } />
             </Box>
             <img src={wideshot2} style={{height: '80vh', position: 'absolute', zIndex: 1, width: '100%'}}></img>
             <Box style={{backgroundColor: 'black',position: 'absolute', zIndex: 2, opacity: 0.5, width: '100%', height: '80vh', alignItems: 'center'}}></Box>
